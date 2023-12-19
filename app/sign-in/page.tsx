@@ -1,3 +1,4 @@
+import { existingUserActions } from "@/actions/serverActions";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -20,7 +21,7 @@ export default function page() {
                 Sign in to your account
               </h2>
             </div>
-            <form className="space-y-6" action="#" method="POST">
+            <form className="space-y-6" action={existingUserActions}>
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Phone Number

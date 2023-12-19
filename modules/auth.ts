@@ -1,6 +1,5 @@
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import prisma from "./db";
+import bcrypt from "bcrypt"
 
 
 //generate token
@@ -8,8 +7,8 @@ export const generateToken = (user: any) => {
   const token = jwt.sign(
     {
       id: user.id,
-      email: user.email,
-      name: user.name,
+      phoneNumber: user.phoneNumber,
+      name: user.firstName,
       isAdmin: user.isAdmin,
     },
     process.env.NEXT_JWT_SECRET as string,
