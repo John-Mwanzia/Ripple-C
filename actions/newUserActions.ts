@@ -1,15 +1,22 @@
 // use server actions to create a new user
 
 // Path: actions/newUserActions.ts
+
+'use server';
+
 import prisma from "../modules/db";
 import { hashPassword } from "../modules/auth";
-import { NextApiRequest, NextApiResponse } from "next";
 
 
 // create a new user
 
-const newUserActions = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { phoneNumber, firstName, password } = req.body;
+const newUserActions = async (formData :FormData) => {
+
+    const phoneNumber =  formData.get("phoneNumber")?.toString();
+    const firstName = formData.get("firstName")?.toString();
+    const password = formData.get("password")?.toString();
+
+
   const hashedPassword = await hashPassword(password);
 
   try {
@@ -21,8 +28,12 @@ const newUserActions = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    res.status(200).json({ message: "user created successfully" });
+    return newUser;
+
   } catch (error) {
-    res.status(400).json({ message: "something went wrong" });
+    console.log(error);
+    return error;
   }
 };
+
+export default newUserActions;

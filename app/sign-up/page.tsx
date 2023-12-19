@@ -1,3 +1,4 @@
+import newUserActions from "@/actions/newUserActions";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -20,7 +21,7 @@ export default function page() {
                 Create your account
               </h2>
             </div>
-            <form className="space-y-6" action="" method="POST">
+            <form className="space-y-6" action={newUserActions} method="POST">
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Phone Number
