@@ -23,12 +23,10 @@ export const POST = async (req: Request) => {
   }
 
   const token = generateToken(user);
-  setCookie("auth_token", token, {
-    path: "/",
-    maxAge: 60 * 60 * 24 * 7, // 1 week
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-  });
 
-  return NextResponse.json({ token });
+  return new Response(JSON.stringify({ token }), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' },
+  });
+  
 };
