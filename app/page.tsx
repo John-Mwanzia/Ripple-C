@@ -2,14 +2,18 @@
 import Image from 'next/image'
 import React, {  useEffect } from 'react'
 import { useRouter } from 'next/navigation';
-import { log } from 'console';
+import { jwtDecode } from "jwt-decode";
+import { decode } from 'punycode';
 
 
 export default function page() {
+  const [decodedToken, setDecodedToken] = React.useState(null);
   const router = useRouter()
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    const decodedToken = jwtDecode(token);
+    setDecodedToken(decodedToken);
     
     
     if(!token) {
@@ -34,7 +38,7 @@ export default function page() {
           />
         </div>
         <div>
-          {/* <UserButton /> */}
+          { decodedToken && <h1 className='text-white dark:text-black'>{decodedToken.firstName}</h1>}
         </div>
       </div>
     </div>
