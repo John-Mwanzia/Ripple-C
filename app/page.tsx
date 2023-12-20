@@ -37,85 +37,86 @@ export default function page() {
     localStorage.removeItem("token");
     router.push("/sign-in");
   };
-  console.log("====================================");
-  console.log(decodedToken);
-  console.log("====================================");
 
   return (
     <div className="bg-white ">
-      <div className="flex justify-around items-center">
-        <div>
-          <Image
-            className="mx-auto  w-auto"
-            src="/Logo.png"
-            alt="logo"
-            width={200}
-            height={100}
-          />
-        </div>
-        <Popover>
-          <PopoverTrigger>
-            <div className="flex items-center justify-center">
-              <Avatar>
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="avatar"
-                  width={40}
-                  height={40}
-                />
-                <AvatarFallback>{getAvatarFallback()}</AvatarFallback>
-              </Avatar>
-            </div>
-          </PopoverTrigger>
-          <PopoverContent>
-            <div className="flex flex-col">
-              <div>
-                <div className=" flex items-center gap-4 mb-4">
+      <div className="flex justify-center    items-center">
+        <div className="w-[90%] xl:w-[80%] flex justify-center  ">
+          <div>
+            <Image
+              className="mx-auto w-32 h-20 sm:w-48 sm:h-24"
+              src="/Logo.png"
+              alt="logo"
+              width={200}
+              height={100}
+            />
+          </div>
+          <div className="flex-1 flex justify-end">
+            <Popover>
+              <PopoverTrigger>
+                <div className="flex items-center justify-center">
+                  <Avatar>
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="avatar"
+                      width={40}
+                      height={40}
+                    />
+                    <AvatarFallback>{getAvatarFallback()}</AvatarFallback>
+                  </Avatar>
+                </div>
+              </PopoverTrigger>
+              <PopoverContent>
+                <div className="flex flex-col">
                   <div>
-                    <Avatar>
-                      <AvatarImage
-                        src="https://github.com/shadcn.png"
-                        alt="avatar"
-                        width={40}
-                        height={40}
-                      />
-                      <AvatarFallback>{getAvatarFallback()}</AvatarFallback>
-                    </Avatar>
-                  </div>
+                    <div className=" flex items-center gap-4 mb-4">
+                      <div>
+                        <Avatar>
+                          <AvatarImage
+                            src="https://github.com/shadcn.png"
+                            alt="avatar"
+                            width={40}
+                            height={40}
+                          />
+                          <AvatarFallback>{getAvatarFallback()}</AvatarFallback>
+                        </Avatar>
+                      </div>
 
-                  <div>
-                    <p className=" text-gray-800  font-semibold">
-                      {decodedToken && decodedToken.name}
-                    </p>
+                      <div>
+                        <p className=" text-gray-800  font-semibold">
+                          {decodedToken && decodedToken.name}
+                        </p>
+                      </div>
+                    </div>
+                    <div className=" flex items-center gap-4 ">
+                      <Image
+                        src="https://cdn-icons-png.flaticon.com/128/126/126341.png"
+                        alt="phone number"
+                        width={20}
+                        height={20}
+                      />
+                      <p className=" text-gray-800 font-semibold">
+                        {decodedToken && decodedToken.phoneNumber}
+                      </p>
+                    </div>
                   </div>
+                  <button
+                    onClick={handleLogout}
+                    className="p-2 flex items-center gap-4 mt-4 rounded-md hover:bg-gray-200 hover:text-gray-800"
+                  >
+                    <Image
+                      src="https://cdn-icons-png.flaticon.com/128/992/992680.png"
+                      alt="logout"
+                      width={20}
+                      height={20}
+                    />
+                    Sign Out
+                  </button>
                 </div>
-                <div className=" flex items-center gap-4 ">
-                  <Image
-                    src="https://cdn-icons-png.flaticon.com/128/126/126341.png"
-                    alt="phone number"
-                    width={20}
-                    height={20}
-                  />
-                  <p className=" text-gray-800 font-semibold">
-                    {decodedToken && decodedToken.phoneNumber}
-                  </p>
-                </div>
-              </div>
-              <button
-                onClick={handleLogout}
-                className="p-2 flex items-center gap-4 mt-4 rounded-md hover:bg-gray-200 hover:text-gray-800"
-              >
-                <Image
-                  src="https://cdn-icons-png.flaticon.com/128/992/992680.png"
-                  alt="logout"
-                  width={20}
-                  height={20}
-                />
-                Sign Out
-              </button>
-            </div>
-          </PopoverContent>
-        </Popover>
+              </PopoverContent>
+            </Popover>
+          </div>
+        </div>
       </div>
     </div>
   );
