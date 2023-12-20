@@ -6,8 +6,11 @@
 
 import prisma from "../modules/db";
 import { generateToken, hashPassword } from "../modules/auth";
+import { getCookie, getCookies, setCookie } from "cookies-next";
+import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
-import { signIn } from "@/handlers/users";
+
+// import { signIn } from "@/handlers/users";
 
 // create a new user
 
@@ -34,7 +37,15 @@ export const newUserActions = async (formData: FormData) => {
 
     const token = generateToken(newUser);
 
-    return token;
+    // set cookie
+    setCookie("auth_token", token, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 24 * 30, // 30 days
+      path: "/",
+    });
+
+    return newUser;
+     
   } catch (error) {
     if (error.code === "P2002" && error.meta.target.includes("phoneNumber")) {
       // Handle the case where the phone number is already in use
@@ -61,9 +72,17 @@ export const existingUserActions = async (formData: FormData) => {
       phoneNumber,
       password,
     });
-    console.log("====================================");
-    console.log(res);
-    console.log("====================================");
+
+    setCookie("auth_token", res, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 24 * 30, // 30 days
+      path: "/",
+    });
+
+
+    // toast.success("Login successful");
+  
+    return res;
   } catch (error) {
     console.log("====================================");
     console.log(error);
