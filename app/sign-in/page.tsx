@@ -9,7 +9,7 @@ import Form from "../components/LoginForm";
 export default function page() {
   return (
     <>
-      <div className="min-h-screen flex flex-col justify-center bg-zinc-100/50  sm:px-6 lg:px-8">
+      <div className="h-screen flex flex-col justify-center bg-zinc-100/50  sm:px-6 lg:px-8">
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg pb-12 sm:px-10">
             <div className="sm:mx-auto sm:w-full sm:max-w-md mb-16">
