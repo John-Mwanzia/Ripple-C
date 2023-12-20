@@ -9,6 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import BottomNav from "./components/BottomNav";
 
 export default function page() {
   const [decodedToken, setDecodedToken] = React.useState(null);
@@ -39,9 +40,9 @@ export default function page() {
   };
 
   return (
-    <div className="bg-white ">
+    <div className="bg-white">
       <div className="flex justify-center    items-center">
-        <div className="w-[90%] xl:w-[80%] flex justify-center  ">
+        <div className="w-[90%] xl:w-[80%] flex justify-center border-b border-gray-200  ">
           <div>
             <Image
               className="mx-auto w-32 h-20 sm:w-48 sm:h-24"
@@ -69,7 +70,7 @@ export default function page() {
               <PopoverContent>
                 <div className="flex flex-col">
                   <div>
-                    <div className=" flex items-center gap-4 mb-4">
+                    <div className=" flex items-center gap-4 mb-4 border-b border-gray-200 pb-3 ">
                       <div>
                         <Avatar>
                           <AvatarImage
@@ -88,7 +89,7 @@ export default function page() {
                         </p>
                       </div>
                     </div>
-                    <div className=" flex items-center gap-4 ">
+                    <div className=" flex items-center gap-4 border-b border-gray-200 pb-3  ">
                       <Image
                         src="https://cdn-icons-png.flaticon.com/128/126/126341.png"
                         alt="phone number"
@@ -118,6 +119,8 @@ export default function page() {
           </div>
         </div>
       </div>
+
+      <BottomNav />
     </div>
   );
 }
