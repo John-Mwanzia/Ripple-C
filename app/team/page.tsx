@@ -6,7 +6,13 @@ export default function page() {
   return (
     <div className=''>
         <Banner />
+        <div>
+        <h3 className='text-2xl text-center underline'>
+                Invite rules
+            </h3>
+        </div>
         <div className='mt-4 flex justify-center rounded-md'>
+            
             <button className='shadow-lg  px-4 py-2'>
                 view team members
             </button>
