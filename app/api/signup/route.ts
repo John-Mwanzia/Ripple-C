@@ -4,22 +4,26 @@ import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
   const request = await req.json();
-  const { phoneNumber, firstName, password } = request;
+  const { phoneNumber, firstName, password, referralCode } = request;
   const user = await prisma.user.findUnique({
     where: {
       phoneNumber: phoneNumber,
     },
   });
   if (user) {
-    return NextResponse.json({ message: "User already exists" }, { status: 409 });
-    }
-    
+    return NextResponse.json(
+      { message: "User already exists" },
+      { status: 409 }
+    );
+  }
+
   const hashedPassword = await hashPassword(password);
   const newUser = await prisma.user.create({
     data: {
       firstName,
       phoneNumber,
       password: hashedPassword,
+      referralCode,
     },
   });
   const token = generateToken(newUser);
