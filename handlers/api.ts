@@ -23,7 +23,7 @@ export const SignIn = async ({phoneNumber, password}) => {
 
 
 
-export const SignUp = async ({phoneNumber,firstName,password}) => {
+export const SignUp = async ({phoneNumber,firstName,password, referralCode}) => {
 
     try {
         const res = await fetch(new Request(createURL("/api/signup"), {
@@ -31,7 +31,9 @@ export const SignUp = async ({phoneNumber,firstName,password}) => {
             body: JSON.stringify({
                 phoneNumber,
                 firstName,
-                password
+                password,
+                referralCode
+
             })
         }))
     

@@ -6,6 +6,11 @@ import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation'
 import { SignUp } from '@/handlers/api';
 
+const generateReferralCode = () => {
+    const randomString = Math.random().toString(36).substring(2, 7);
+    return randomString.toUpperCase();
+  };
+
 
 export default function SignUpForm() {
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -24,10 +29,13 @@ export default function SignUpForm() {
             return;
           }
 
+          const referralCode = generateReferralCode();
+
         const data = {
             phoneNumber,
             firstName,
             password,
+            referralCode
         }
 
         try {
