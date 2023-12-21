@@ -1,10 +1,11 @@
 'use client';
 
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation'
 import { SignUp } from '@/handlers/api';
+import { Store } from '@/contexts/store';
 
 const generateReferralCode = () => {
     const randomString = Math.random().toString(36).substring(2, 7);
@@ -18,6 +19,8 @@ export default function SignUpForm() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const[isLoading, setIsLoading] = useState(false);
+
+    const { state, dispatch:ctxDispatch } = useContext(Store);
 
     const router = useRouter()
 
@@ -44,7 +47,8 @@ export default function SignUpForm() {
             setIsLoading(false);
       
             if (response && response.token) {
-              localStorage.setItem('token', JSON.stringify(response.token));
+              // Handle successful login
+              ctxDispatch({ type: 'LOGIN', payload: response.token });
               toast.success('Login successful');
               router.push('/');
             } else {
@@ -139,7 +143,7 @@ export default function SignUpForm() {
         href="/sign-in"
         className="font-medium text-indigo-600 hover:text-indigo-500"
       >
-        Sign in
+       {isLoading ? 'Loading...' : 'Sign in'}
       </Link>
     </div>
 

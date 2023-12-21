@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -10,10 +10,14 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import BottomNav from "./components/BottomNav";
+import { Store } from "@/contexts/store";
 
 export default function page() {
   const [decodedToken, setDecodedToken] = React.useState(null);
   const router = useRouter();
+
+  const {state} = useContext(Store);
+  const {token} = state;
 
   const getAvatarFallback = () => {
     if (decodedToken && decodedToken.name) {
@@ -23,12 +27,8 @@ export default function page() {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
-      ? JSON.parse(localStorage.getItem("token"))
-      : null;
-
     if (token) {
-      const decodedToken = jwtDecode(token);
+      const decodedToken = jwtDecode(token) as MyDecodedToken;
       setDecodedToken(decodedToken);
     } else {
       router.push("/sign-in");
@@ -38,6 +38,9 @@ export default function page() {
     localStorage.removeItem("token");
     router.push("/sign-in");
   };
+
+ 
+  
 
   return (
     <div className="bg-white">

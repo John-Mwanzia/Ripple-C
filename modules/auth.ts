@@ -9,6 +9,7 @@ export const generateToken = (user: any) => {
       id: user.id,
       phoneNumber: user.phoneNumber,
       name: user.firstName,
+      referralCode: user.referralCode,
       isAdmin: user.isAdmin,
     },
     process.env.NEXT_JWT_SECRET as string,
