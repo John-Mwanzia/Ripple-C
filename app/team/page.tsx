@@ -7,8 +7,6 @@ import InviteCard from "../components/InviteCard";
 import Link from "next/link";
 
 export default function page() {
-  
-  
   return (
     <div className="pb-20">
       <Banner />

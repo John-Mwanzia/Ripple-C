@@ -6,17 +6,17 @@ export const Store = createContext(null);
 
 interface State {
   token: string | null;
-  // Define other state properties if needed
+
 }
 
 interface Action {
   type: string;
-  payload?: any; // Adjust payload type as needed
+  payload?: any; 
 }
 
 const initialState: State = {
   token:typeof window !== 'undefined' && localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null,
-  // Initialize other state properties if needed
+  
 };
 
 function reducer(state: State, action: Action): State {
