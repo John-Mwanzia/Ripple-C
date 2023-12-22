@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { SignUp } from "@/handlers/api";
 import { Store } from "@/contexts/store";
+import Loader from "./Loader";
 
 const generateReferralCode = () => {
   const randomString = Math.random()
@@ -22,15 +23,23 @@ export default function SignUpForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [referrerCode, setReferrerCode] = useState("");
   const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { token } = state;
+
+  useEffect(() => {
+    // revoke access to sign in page if user is already logged in
+    if (token) {
+      router.push("/");
+    }
+  }, [token]);
 
   const router = useRouter();
 
-  useEffect(()=>{
+  useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-      const providedReferralCode = urlParams.get("referralCode");
-      setReferrerCode(providedReferralCode);
-      console.log(referrerCode);
-  },[])
+    const providedReferralCode = urlParams.get("referralCode");
+    setReferrerCode(providedReferralCode);
+    console.log(referrerCode);
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -56,7 +65,7 @@ export default function SignUpForm() {
       const providedReferralCode = urlParams.get("referralCode");
       setReferrerCode(providedReferralCode);
       console.log(referrerCode);
-      
+
       const response = await SignUp(data);
       setIsLoading(false);
 
@@ -153,7 +162,7 @@ export default function SignUpForm() {
           href="/sign-in"
           className="font-medium text-indigo-600 hover:text-indigo-500"
         >
-          {isLoading ? "Loading..." : "Sign in"}
+          Sign in
         </Link>
       </div>
 
@@ -162,7 +171,7 @@ export default function SignUpForm() {
           type="submit"
           className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
-          Sign up
+          {isLoading ? <Loader width={25} height={25} /> : "Sign Up"}
         </button>
       </div>
     </form>
