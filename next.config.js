@@ -1,12 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-     domains :[
+  images: {
+    domains: [
       "cdn-icons-png.flaticon.com",
       "images.flaticon.com",
-      "images.unsplash.com"
-     ]
-      },
+      "images.unsplash.com",
+      "i.gifer.com",
+    ],
+  },
 };
 
 module.exports = nextConfig;

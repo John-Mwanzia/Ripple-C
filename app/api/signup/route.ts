@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
   const request = await req.json();
-  const { phoneNumber, firstName, password, referralCode } = request;
+  const { phoneNumber, firstName, password, referralCode,referrer } = request;
   const user = await prisma.user.findUnique({
     where: {
       phoneNumber: phoneNumber,
@@ -16,6 +16,8 @@ export const POST = async (req: Request) => {
       { status: 409 }
     );
   }
+  console.log(referrer);
+  
 
   const hashedPassword = await hashPassword(password);
   const newUser = await prisma.user.create({
@@ -24,6 +26,11 @@ export const POST = async (req: Request) => {
       phoneNumber,
       password: hashedPassword,
       referralCode,
+      referrer: {
+        connect: {
+          referralCode: referrer,
+        }
+      }
     },
   });
   const token = generateToken(newUser);

@@ -1,24 +1,15 @@
 "use client";
 
-import { Store } from "@/contexts/store";
-import { jwtDecode } from "jwt-decode";
+
 import Image from "next/image";
 import React, { useContext, useEffect, useState } from "react";
 
-export default function InviteCard() {
-  const [decodedToken, setDecodedToken] = useState(null);
+export default function InviteCard({decodedToken}) {
+  
   const [copyCodeSuccess, setCopyCodeSuccess] = useState(false);
   const [copyLinkSuccess, setCopyLinkSuccess] = useState(false);
 
-  const { state } = useContext(Store);
-  const { token } = state;
-
-  useEffect(() => {
-    if (token) {
-      const decodedToken = jwtDecode(token) as MyDecodedToken;
-      setDecodedToken(decodedToken);
-    }
-  }, [token]);
+ 
 
   const copyToClipboard = (text, setCopySuccess) => {
     navigator.clipboard.writeText(text).then(
