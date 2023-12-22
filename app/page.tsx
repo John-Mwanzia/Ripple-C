@@ -16,8 +16,8 @@ export default function page() {
   const [decodedToken, setDecodedToken] = React.useState(null);
   const router = useRouter();
 
-  const {state} = useContext(Store);
-  const {token} = state;
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { token } = state;
 
   const getAvatarFallback = () => {
     if (decodedToken && decodedToken.name) {
@@ -35,12 +35,10 @@ export default function page() {
     }
   }, []);
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    ctxDispatch({ type: "LOGOUT" });
+
     router.push("/sign-in");
   };
-
- 
-  
 
   return (
     <div className="bg-white">
