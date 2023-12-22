@@ -42,58 +42,64 @@ export default function InviteCard() {
           <span className="text-sm">
             {decodedToken && decodedToken.referralCode}
           </span>
-          <button
-            onClick={() =>
-              copyToClipboard(
-                decodedToken && decodedToken.referralCode,
-                setCopyCodeSuccess
-              )
-            }
-            className="flex-1 flex justify-end relative"
-          >
-            <Image
-              src="https://cdn-icons-png.flaticon.com/128/1621/1621635.png"
-              alt="copy"
-              width={20}
-              height={20}
-            />
-            {copyCodeSuccess && (
-              <span
-                style={{ color: "green" }}
-                className="absolute -top-8 -right-4"
-              >
-                Code Copied!
-              </span>
-            )}
-          </button>
+          <div className="flex-1 flex justify-end">
+            <button
+              onClick={() =>
+                copyToClipboard(
+                  decodedToken && decodedToken.referralCode,
+                  setCopyCodeSuccess
+                )
+              }
+              className="flex-1 flex justify-end relative"
+            >
+              <Image
+                src="https://cdn-icons-png.flaticon.com/128/1621/1621635.png"
+                alt="copy"
+                width={20}
+                height={20}
+              />
+              {copyCodeSuccess && (
+                <span
+                  style={{ color: "green" }}
+                  className="absolute -top-8 -right-4"
+                >
+                  Code Copied!
+                </span>
+              )}
+            </button>
+          </div>
         </h3>
-        <div className="flex gap-3 justify-start pl-4 max-w-xs items-center skew-x-12">
+        <div className="flex gap-3 justify-start pl-4  items-center skew-x-12">
           <span className="font-medium">Link :</span>
           <span className="text-sm">https://ripple-c.vercel.app...</span>
-          <button
-            onClick={() =>
-              copyToClipboard(
-                "https://ripple-c.vercel.app/sign-up?referralCode=" +
-                  decodedToken.referralCode,
-                  
-                setCopyLinkSuccess
-              )
-            }
-            className="flex-1 flex justify-end relative"
-          >
-            <Image
-              src="https://cdn-icons-png.flaticon.com/128/1621/1621635.png"
-              alt="copy"
-              width={20}
-              height={20}
-            />
-            {copyLinkSuccess && (
-              <span style={{ color: "green", whiteSpace: 'nowrap' }}
-              className="absolute -top-8  z-50"
-              
-              >Link Copied!</span>
-            )}
-          </button>
+          <div className="flex-1 flex justify-end">
+            <button
+              onClick={() =>
+                copyToClipboard(
+                  "https://ripple-c.vercel.app/sign-up?referralCode=" +
+                    decodedToken.referralCode,
+
+                  setCopyLinkSuccess
+                )
+              }
+              className=" relative"
+            >
+              <Image
+                src="https://cdn-icons-png.flaticon.com/128/1621/1621635.png"
+                alt="copy"
+                width={20}
+                height={20}
+              />
+              {copyLinkSuccess && (
+                <span
+                  style={{ color: "green", whiteSpace: "nowrap" }}
+                  className="absolute -top-6 -left-12  z-50"
+                >
+                  Link Copied!
+                </span>
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </div>
