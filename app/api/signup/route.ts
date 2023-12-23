@@ -33,6 +33,19 @@ export const POST = async (req: Request) => {
       }
     },
   });
+
+  const newAccount = await prisma.account.create({
+    data: {
+      userId: newUser.id.toString(),
+      balance: 50.0,
+      level: 1, 
+      dailyEarningRate: 0.0, 
+     
+    },
+  });
+  
+
+
   const token = generateToken(newUser);
 
   return NextResponse.json({ token }, { status: 200 });
