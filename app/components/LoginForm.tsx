@@ -5,16 +5,32 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
+import * as Yup from 'yup';
+
+
 import Loader from './Loader';
 import { Store } from '@/contexts/store';
+
+interface FormErrors {
+  phoneNumber?: string;
+  password?: string;
+  [key: string]: string | undefined;
+}
 
 export default function Form() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
     const [phoneNumber, setPhoneNumber] = useState("");
     const [password, setPassword] = useState("");
     const[isLoading, setIsLoading] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<FormErrors>({});
+
 
     const { token } = state;
+
+    const validationSchema = Yup.object().shape({
+      phoneNumber: Yup.string().required('Phone number is required'),
+      password: Yup.string().required('Password is required'),
+    });
 
     useEffect(() => {
       // revoke access to sign in page if user is already logged in
@@ -32,6 +48,20 @@ export default function Form() {
         const data = {
             phoneNumber,
             password
+        }
+        // Validate form fields
+        try {
+          await validationSchema.validate(data, { abortEarly: false });
+        } catch (error) {
+          // Yup errors
+          const errors: FormErrors = {};
+          if (error instanceof Yup.ValidationError) {
+            error.inner.forEach((err) => {
+              errors[err.path] = err.message;
+            });
+          }
+          setValidationErrors(errors);
+          return;
         }
 
         try {
@@ -73,6 +103,9 @@ export default function Form() {
           className="appearance-none block text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
         />
       </div>
+      {validationErrors && validationErrors.phoneNumber && (
+        <div style={{ color: "red" }}>{validationErrors.phoneNumber}</div>
+      )}
     </div>
 
     <div>
@@ -93,6 +126,9 @@ export default function Form() {
           className="appearance-none text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
         />
       </div>
+      {validationErrors && validationErrors.password && (
+        <div style={{ color: "red" }}>{validationErrors.password}</div>
+      )}
     </div>
 
     <div className="flex items-center text-sm gap-2">

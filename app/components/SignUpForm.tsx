@@ -3,6 +3,8 @@
 import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import * as Yup from "yup";
+
 import { useRouter } from "next/navigation";
 import { SignUp } from "@/handlers/api";
 import { Store } from "@/contexts/store";
@@ -15,6 +17,14 @@ const generateReferralCode = () => {
   return randomString.toUpperCase();
 };
 
+interface FormErrors {
+  phoneNumber?: string;
+  firstName?: string;
+  password?: string;
+  confirmPassword?: string;
+  [key: string]: string | undefined;
+}
+
 export default function SignUpForm() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -22,8 +32,30 @@ export default function SignUpForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [referrerCode, setReferrerCode] = useState("");
+  const [validationErrors, setValidationErrors] = useState<FormErrors>({});
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { token } = state;
+
+  const validationSchema = Yup.object().shape({
+    phoneNumber: Yup.string()
+    .required("Phone number is required")
+    .matches(/^(07|01)\d{8}$/, {
+      message: "Phone number must start with 07 or 01",
+      excludeEmptyString: true, // Exclude error if field is empty
+    })
+    .matches(/^\d{10}$/, {
+      message: "Phone number must be 10 digits",
+      excludeEmptyString: true, // Exclude error if field is empty
+    })
+    .label("Phone Number"),
+    firstName: Yup.string().required("First name is required"),
+    password: Yup.string()
+      .required("Password is required")
+      .min(8, "Password must be at least 8 characters long"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], "Passwords must match")
+      .required("Confirm password is required"),
+  });
 
   useEffect(() => {
     // revoke access to sign in page if user is already logged in
@@ -60,27 +92,52 @@ export default function SignUpForm() {
     };
 
     try {
-      setIsLoading(true);
-      const urlParams = new URLSearchParams(window.location.search);
-      const providedReferralCode = urlParams.get("referralCode");
-      setReferrerCode(providedReferralCode);
-      console.log(referrerCode);
+      await validationSchema.validate(
+        {
+          phoneNumber,
+          firstName,
+          password,
+          confirmPassword,
+        },
+        { abortEarly: false }
+      );
 
-      const response = await SignUp(data);
-      setIsLoading(false);
+      // If validation succeeds, proceed with your form submission logic 
+      // also remove any existing validation errors
+      setValidationErrors({});
+      //  make the API request
 
-      if (response && response.token) {
-        // Handle successful login
-        ctxDispatch({ type: "LOGIN", payload: response.token });
-        toast.success("Login successful");
-        router.push("/");
-      } else {
-        // Handle invalid response or missing token
-        toast.error("Invalid response");
+
+
+      try {
+
+        setIsLoading(true);
+        const urlParams = new URLSearchParams(window.location.search);
+        const providedReferralCode = urlParams.get("referralCode");
+        setReferrerCode(providedReferralCode);
+        console.log(referrerCode);
+
+        const response = await SignUp(data);
+        setIsLoading(false);
+
+        if (response && response.token) {
+          // Handle successful login
+          ctxDispatch({ type: "LOGIN", payload: response.token });
+          toast.success("Login successful");
+          router.push("/");
+        } else {
+          // Handle invalid response or missing token
+          toast.error("Invalid response");
+        }
+      } catch (error) {
+        toast.error("Error occurred during login");
       }
-    } catch (error) {
-      console.log(error); // Log the error for debugging
-      toast.error("Error occurred during login");
+    } catch (validationErrors) {
+      const formattedErrors = {};
+      validationErrors.inner.forEach((error) => {
+        formattedErrors[error.path] = error.message;
+      });
+      setValidationErrors(formattedErrors);
     }
   };
 
@@ -99,6 +156,9 @@ export default function SignUpForm() {
             className="appearance-none block text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
+        {validationErrors && validationErrors.phoneNumber && (
+          <div style={{ color: "red" }}>{validationErrors.phoneNumber}</div>
+        )}
       </div>
 
       <div>
@@ -114,6 +174,9 @@ export default function SignUpForm() {
             className="appearance-none block text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
+        {validationErrors && validationErrors.firstName && (
+          <div style={{ color: "red" }}>{validationErrors.firstName}</div>
+        )}
       </div>
 
       <div>
@@ -134,6 +197,9 @@ export default function SignUpForm() {
             className="appearance-none text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
+        {validationErrors && validationErrors.password && (
+          <div style={{ color: "red" }}>{validationErrors.password}</div>
+        )}
       </div>
 
       <div>
@@ -154,6 +220,9 @@ export default function SignUpForm() {
             className="appearance-none text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
+        {validationErrors && validationErrors.confirmPassword && (
+          <div style={{ color: "red" }}>{validationErrors.confirmPassword}</div>
+        )}
       </div>
 
       <div className="flex items-center text-sm gap-2">

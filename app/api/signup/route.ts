@@ -16,7 +16,7 @@ export const POST = async (req: Request) => {
       { status: 409 }
     );
   }
-  console.log(referrer);
+
   
 
   const hashedPassword = await hashPassword(password);
