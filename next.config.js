@@ -6,6 +6,7 @@ const nextConfig = {
       "images.flaticon.com",
       "images.unsplash.com",
       "i.gifer.com",
+      "cdn2.iconfinder.com",
     ],
   },
 };

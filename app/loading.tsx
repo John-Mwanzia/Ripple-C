@@ -7,8 +7,8 @@ export default function loading() {
        <Image
         src = "https://i.gifer.com/origin/34/34338d26023e5515f6cc8969aa027bca.gif"
         alt = "loading"
-        width = {200}
-        height = {200}
+        width = {100}
+        height = {100}
          />
     </div>
   )

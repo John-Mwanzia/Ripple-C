@@ -48,3 +48,22 @@ export const SignUp = async ({
     throw new Error(error);
   }
 };
+
+
+export const getUserData  = async ({phoneNumber}) => {
+  console.log(phoneNumber);
+  
+  try {
+    const res = await fetch(
+      new Request(createURL(`/api/user/${phoneNumber}`), {
+        method: "GET",
+      })
+    );
+
+    if (res.ok) {
+      return res.json();
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+}
