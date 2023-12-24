@@ -98,6 +98,68 @@ export default function page() {
               </Link>
             </div>
           </div>
+          <div className="mt-12">
+            <div className="px-4 border-b-2 border-gray-200 pb-2 mt-4">
+              <Link
+                href="/recharge-history"
+                className="text-black flex justify-between  font-bold"
+              >
+                <h2>Recharge Records</h2>
+                <Image
+                  src="https://cdn-icons-png.flaticon.com/128/709/709586.png"
+                  alt="right arrow"
+                  width={15}
+                  height={6}
+                  className=""
+                />
+              </Link>
+            </div>
+            <div className="px-4 border-b-2 border-gray-200 pb-2 mt-4">
+              <Link
+                href="/withdraw-history"
+                className="text-black flex justify-between  font-bold"
+              >
+                <h2>Withdraw Records</h2>
+                <Image
+                  src="https://cdn-icons-png.flaticon.com/128/709/709586.png"
+                  alt="right arrow"
+                  width={15}
+                  height={6}
+                  className=""
+                />
+              </Link>
+            </div>
+            <div className="px-4 border-b-2 border-gray-200 pb-2 mt-4">
+              <Link
+                href="/recharge-history"
+                className="text-black flex justify-between  font-bold"
+              >
+                <h2>Inite flow</h2>
+                <Image
+                  src="https://cdn-icons-png.flaticon.com/128/709/709586.png"
+                  alt="right arrow"
+                  width={15}
+                  height={6}
+                  className=""
+                />
+              </Link>
+            </div>
+            <div className="px-4 border-b-2 border-gray-200 pb-2 mt-4">
+              <Link
+                href="/about-us"
+                className="text-black flex justify-between  font-bold"
+              >
+                <h2>About Us</h2>
+                <Image
+                  src="https://cdn-icons-png.flaticon.com/128/709/709586.png"
+                  alt="right arrow"
+                  width={15}
+                  height={6}
+                  className=""
+                />
+              </Link>
+            </div>
+          </div>
           <BottomNav />
         </>
       )}
