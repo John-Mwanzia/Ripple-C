@@ -57,20 +57,7 @@ export default function InviteRules() {
           referrals
         </p>
       </li>
-      <li className="flex gap-2 items-start">
-        <Image
-          src="https://cdn-icons-png.flaticon.com/128/408/408472.png"
-          alt="diamond"
-          width={20}
-          height={20}
-          // prevent stretch
-          className="object-contain "
-        />
-        <p className="text-sm">
-          {" "}
-          A tax of 10% will be deducted from your referral bonus
-        </p>
-      </li>
+     
     </ul>
   </div>
   )
