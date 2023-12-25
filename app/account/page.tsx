@@ -6,7 +6,6 @@ import Image from "next/image";
 import Header from "../components/account/Header";
 import { Store } from "@/contexts/store";
 import { jwtDecode } from "jwt-decode";
-import { get } from "http";
 import { getUserData } from "@/handlers/api";
 import Loader from "../components/Loader";
 import Link from "next/link";
@@ -131,10 +130,10 @@ export default function page() {
             </div>
             <div className="px-4 border-b-2 border-gray-200 pb-2 mt-4">
               <Link
-                href="/recharge-history"
+                href="/invite-flow"
                 className="text-black flex justify-between  font-bold"
               >
-                <h2>Inite flow</h2>
+                <h2>Invite flow</h2>
                 <Image
                   src="https://cdn-icons-png.flaticon.com/128/709/709586.png"
                   alt="right arrow"
