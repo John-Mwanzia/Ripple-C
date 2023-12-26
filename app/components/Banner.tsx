@@ -17,11 +17,12 @@ export default function Banner() {
           Together, We Rise! and Thrive!
         </h2>
         <h3 className="mt-3">
-          <span className="text-orange-400 text-lg">Invite, Earn</span> Credits, and Rock with Your Team as <span className="text-green-500 text-lg"> Success</span> becomes a
+          <span className="text-orange-400 text-lg">Invite, Earn</span> Credits,
+          and Rock with Your Team as{" "}
+          <span className="text-green-500 text-lg"> Success</span> becomes a
           Shared Journey.
         </h3>
       </div>
-      
     </div>
   );
 }
