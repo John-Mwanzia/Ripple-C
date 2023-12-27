@@ -13,7 +13,7 @@ export default async function page({ params }) {
       referee: true,
     },
   });
-  console.log(response);
+ 
 
   return (
     <div>

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export const GET = async (req: Request, { params }) => {
   const { phoneNumber } = params;
-  console.log(phoneNumber);
+  
 
   const user = await prisma.user.findUnique({
     where: {

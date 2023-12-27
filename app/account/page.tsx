@@ -45,6 +45,7 @@ export default function page() {
       fetchData();
     }
   }, [token]);
+  
 
   return (
     <div className="relative   ">
@@ -73,7 +74,8 @@ export default function page() {
 
           <div className="flex justify-between px-4 mt-8">
             <div className="bg-[#E95514]/80  px-6 py-2 rounded-lg">
-              <Link href="/recharge" className="flex flex-col items-center">
+              <Link href={`/wallet/recharge/${userData && userData.id}`}
+              className="flex flex-col items-center">
                 <Image
                   src="https://cdn2.iconfinder.com/data/icons/dollar-7/64/dollar_money-15-512.png"
                   alt="recharge"
