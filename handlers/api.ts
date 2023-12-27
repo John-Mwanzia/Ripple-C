@@ -49,10 +49,9 @@ export const SignUp = async ({
   }
 };
 
-
-export const getUserData  = async ({phoneNumber}) => {
+export const getUserData = async ({ phoneNumber }) => {
   console.log(phoneNumber);
-  
+
   try {
     const res = await fetch(
       new Request(createURL(`/api/user/${phoneNumber}`), {
@@ -66,4 +65,25 @@ export const getUserData  = async ({phoneNumber}) => {
   } catch (error) {
     throw new Error(error);
   }
-}
+};
+
+export const transactionInit = async ({ phoneNumber, amount, type }) => {
+  try {
+    const res = await fetch(
+      new Request(createURL("/api/transaction"), {
+        method: "POST",
+        body: JSON.stringify({
+          phoneNumber,
+          amount,
+          type,
+        }),
+      })
+    );
+
+    if (res.ok) {
+      return res.json();
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
