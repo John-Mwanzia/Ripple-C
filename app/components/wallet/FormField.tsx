@@ -2,6 +2,7 @@
 
 import { transactionInit } from "@/handlers/api";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const inputAmount = [
   800,
@@ -22,6 +23,7 @@ const inputAmount = [
 
 export default function FormField({ userId, phoneNumber }) {
   const [amount, setAmount] = useState(0);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,9 +37,25 @@ export default function FormField({ userId, phoneNumber }) {
       type: "RECHARGE",
     };
 
-    const response = await transactionInit(data);
+    try {
+      const response = await transactionInit(data);
 
-    console.log(response);
+      // If response is successful, redirect to /userPay/${userId} with transactionId and amount
+
+      if (response) {
+        const { transactionId, amount } = response.data;
+        console.log(transactionId, amount);
+
+        router.push(
+          `/userPay/${userId}?transactionId=${transactionId}&amount=${amount}`
+        );
+      } else {
+        // Handle error
+      }
+    } catch (error) {
+      // Handle error
+      console.error(error);
+    }
 
     // Redirect to mpesa
     // Redirect to success page
