@@ -68,10 +68,10 @@ export default function page() {
         <div className="flex justify-between px-4 mt-6">
           <p>Pay to</p>
           <div className="flex gap-4">
-            <p className="font-medium">Ripple Kinuthia</p>
+            <p className="font-medium">Caleb Muthama</p>
             <button
               onClick={() =>
-                copyToClipboard("Ripple Kinuthia", setCopySendToSuccess)
+                copyToClipboard("Caleb Muthama", setCopySendToSuccess)
               }
               className="relative"
             >

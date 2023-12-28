@@ -26,6 +26,9 @@ export default async function page({ params }) {
         </div>
         <FormField userId={id} phoneNumber={response.phoneNumber} />
       </div>
+      <div className="mt-8 px-4">
+        <p className="text-red-600">* Minimum recharge amount is Ksh: 800</p>
+      </div>
     </div>
   );
 }
