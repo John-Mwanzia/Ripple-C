@@ -5,13 +5,11 @@ import BottomNav from "../components/BottomNav";
 import Image from "next/image";
 import Header from "../components/account/Header";
 import { Store } from "@/contexts/store";
-import { jwtDecode } from "jwt-decode";
 import { getUserData } from "@/handlers/api";
 import Loader from "../components/Loader";
 import Link from "next/link";
 
 export default function page() {
-  const [decodedToken, setDecodedToken] = useState(null);
   const [isLoading, setisLoading] = useState(false);
   const [userData, setUserData] = useState(null);
 
@@ -23,12 +21,10 @@ export default function page() {
       const fetchData = async () => {
         try {
           setisLoading(true);
-          const decodedToken = jwtDecode(token) as MyDecodedToken;
-          setDecodedToken(decodedToken);
 
           // Fetch user data
           const response = await getUserData({
-            phoneNumber: decodedToken.phoneNumber,
+            phoneNumber: token.phoneNumber,
           });
 
           // Once data is fetched, set it in state

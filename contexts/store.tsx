@@ -1,30 +1,32 @@
-'use client';
+"use client";
 
-import React, { createContext, ReactNode, useReducer } from 'react';
+import { jwtDecode } from "jwt-decode";
+import React, { createContext, ReactNode, useReducer } from "react";
 
 export const Store = createContext(null);
-
 interface State {
-  token: string | null;
-
+  token: MyDecodedToken | null; // Allow decoded token or null
+  // ...other properties
 }
 
 interface Action {
   type: string;
-  payload?: any; 
+  payload?: any;
 }
 
 const initialState: State = {
-  token:typeof window !== 'undefined' && localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null,
-  
+  token:
+    typeof window !== "undefined" && localStorage.getItem("token")
+      ? (jwtDecode(localStorage.getItem("token")) as MyDecodedToken) // Decode here
+      : null,
 };
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
-    case 'LOGIN':
-      localStorage.setItem('token', JSON.stringify(action.payload));
+    case "LOGIN":
+      localStorage.setItem("token", JSON.stringify(action.payload));
       return { ...state, token: action.payload };
-    case 'LOGOUT':
+    case "LOGOUT":
       localStorage.clear();
       return { ...state, token: null };
     default:

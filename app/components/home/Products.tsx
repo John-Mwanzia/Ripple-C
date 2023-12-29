@@ -71,7 +71,10 @@ export default function Products() {
     <div className="mt-4 pb-20">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {products.map((product) => (
-          <div className="bg-white shadow-md rounded-md p-4">
+          <div
+            key={product.productName}
+            className="bg-white shadow-md rounded-md p-4"
+          >
             <div className="flex justify-between">
               <div>
                 <p className="text-gray-800 font-semibold">
