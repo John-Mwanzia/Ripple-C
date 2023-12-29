@@ -38,7 +38,7 @@ const products = [
     totalIncome: "20,000",
   },
   {
-    produtName: " MagSafe 2-in-1 Wireless Charger",
+    productName: " MagSafe 2-in-1 Wireless Charger",
     productImage:
       "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1634825957-belkin-magsafe-2-in-1-wireless-charger-1634825947.jpg?crop=1xw:1xh;center,top&resize=980:*",
     productPrice: "12,000",
@@ -67,5 +67,52 @@ const products = [
 ];
 
 export default function Products() {
-  return <div>hello</div>;
+  return (
+    <div className="mt-4 pb-20">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {products.map((product) => (
+          <div className="bg-white shadow-md rounded-md p-4">
+            <div className="flex justify-between">
+              <div>
+                <p className="text-gray-800 font-semibold">
+                  {product.productName}
+                </p>
+                <p className="text-gray-500 text-sm">
+                  Price: {product.productPrice}
+                </p>
+              </div>
+              <div>
+                <img src={product.productImage} alt="" className="w-20 h-20" />
+              </div>
+            </div>
+            <div className="flex justify-between mt-4">
+              <div>
+                <p className="text-gray-500 text-sm">Revenue Cycle</p>
+                <p className="text-[#F0C113]/80 font-semibold">
+                  {product.revenueCycle} days
+                </p>
+              </div>
+              <div>
+                <p className="text-gray-500 text-sm">Daily Income</p>
+                <p className="text-[#E95514]/80 font-semibold">
+                  Ksh {product.dailyIncome}
+                </p>
+              </div>
+              <div>
+                <p className="text-gray-500 text-sm">Total Income</p>
+                <p className="text-gray-800 font-semibold">
+                  Ksh {product.totalIncome}
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-end mt-4">
+              <button className="bg-[#E95514]/80 text-white px-4 py-2 rounded-md">
+                Buy Now
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
