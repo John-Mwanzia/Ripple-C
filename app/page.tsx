@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/popover";
 import BottomNav from "./components/BottomNav";
 import { Store } from "@/contexts/store";
+import Products from "./components/home/Products";
 
 export default function page() {
   const [decodedToken, setDecodedToken] = React.useState(null);
@@ -120,6 +121,8 @@ export default function page() {
           </div>
         </div>
       </div>
+
+      <Products />
 
       <BottomNav />
     </div>
