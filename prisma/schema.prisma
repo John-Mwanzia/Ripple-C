@@ -11,18 +11,19 @@ datasource db {
 }
 
 model User {
-  id           String    @id @default(auto()) @map("_id") @db.ObjectId
-  phoneNumber  String    @unique
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  phoneNumber  String       @unique
   firstName    String?
   password     String
-  isAdmin      Boolean   @default(false)
-  referralCode String    @unique
-  referrer     User?     @relation("ReferrerReferral", fields: [referrerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  referee      User[]    @relation("ReferrerReferral")
-  referrerId   String?   @db.ObjectId
-  accounts     Account[] @relation("UserAccounts")
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  isAdmin      Boolean      @default(false)
+  referralCode String       @unique
+  referrer     User?        @relation("ReferrerReferral", fields: [referrerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  referee      User[]       @relation("ReferrerReferral")
+  referrerId   String?      @db.ObjectId
+  accounts     Account[]    @relation("UserAccounts")
+  investments  Investment[] @relation("InvestmentUser")
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 
   Account Account[]
 }
@@ -30,7 +31,7 @@ model User {
 model Account {
   id               String        @id @default(auto()) @map("_id") @db.ObjectId
   userId           String        @db.ObjectId
-   user              User      @relation("UserAccounts", fields: [userId], references: [id])
+  user             User          @relation("UserAccounts", fields: [userId], references: [id])
   balance          Float
   level            Int
   dailyEarningRate Float
@@ -51,6 +52,33 @@ model Transaction {
   createdAt     DateTime          @default(now())
 }
 
+model Investment {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String           @db.ObjectId
+  user        User             @relation("InvestmentUser", fields: [userId], references: [id])
+  productId   String?          @db.ObjectId
+  product     Product?         @relation(fields: [productId], references: [id])
+  amount      Float
+  cycle       Int
+  dailyIncome Float
+  totalIncome Float
+  createdAt   DateTime         @default(now())
+  status      InvestmentStatus
+}
+
+model Product {
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  productName  String
+  productImage String
+  productPrice Float
+  cycle        Int
+  dailyIncome  Float
+  totalIncome  Float
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  Investment   Investment[]
+}
+
 enum TransactionType {
   RECHARGE
   WITHDRAWAL
@@ -60,4 +88,9 @@ enum TransactionStatus {
   PENDING
   COMPLETED
   FAILED
+}
+
+enum InvestmentStatus {
+  ACTIVE
+  COMPLETED
 }
