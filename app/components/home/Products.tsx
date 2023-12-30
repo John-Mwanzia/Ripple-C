@@ -77,7 +77,7 @@ const products = [
 export default function Products() {
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
-  const [loadingIndices, setLoadingIndices] = useState(new Set());
+  const [loadingIndices, setLoadingIndices] = useState<number[]>([]);
 
   const { state } = useContext(Store);
   const { token } = state;
@@ -116,7 +116,7 @@ export default function Products() {
 
   const handleBuyNow = async (product, index) => {
     try {
-      setLoadingIndices((prev) => new Set([...prev, index]));
+      setLoadingIndices((prev) => [...prev, index]);
 
       // Check if user has enough balance to buy the product
       if (userData && userData.Account[0].balance >= product.productPrice) {
@@ -134,11 +134,7 @@ export default function Products() {
         });
 
         // Hide loader
-        setLoadingIndices((prev) => {
-          const updated = new Set(prev);
-          updated.delete(index);
-          return updated;
-        });
+        setLoadingIndices((prev) => prev.filter((i) => i !== index));
 
         // Show success message
 
@@ -151,11 +147,7 @@ export default function Products() {
       }
     } catch (error) {
       // Handle errors if needed
-      setLoadingIndices((prev) => {
-        const updated = new Set(prev);
-        updated.delete(index);
-        return updated;
-      });
+      setLoadingIndices((prev) => prev.filter((i) => i !== index));
       console.error(error);
     }
   };
@@ -202,7 +194,7 @@ export default function Products() {
               </div>
             </div>
             <div className="flex justify-end mt-4">
-              {loadingIndices.has(index) ? (
+              {loadingIndices.includes(index) ? (
                 <Loader width={30} height={30} />
               ) : (
                 <button
