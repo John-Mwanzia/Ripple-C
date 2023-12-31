@@ -7,7 +7,6 @@ export default function page() {
     <div className="bg-white">
       <Header />
       <Products />
-
       <BottomNav />
     </div>
   );
