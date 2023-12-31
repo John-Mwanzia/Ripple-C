@@ -3,6 +3,7 @@
 import { transactionInit } from "@/handlers/api";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const inputAmount = [
   800,
@@ -39,6 +40,11 @@ export default function FormField({ userId, phoneNumber }) {
 
     try {
       const response = await transactionInit(data);
+      // if amount is less than 800, show error and return
+      if (amount < 800) {
+        toast.error("Minimum recharge amount is Ksh: 800");
+        return;
+      }
 
       // If response is successful, redirect to /userPay/${userId} with transactionId and amount
 
