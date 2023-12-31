@@ -102,7 +102,7 @@ export default function page() {
           <div className="mt-12">
             <div className="px-4 border-b-2 border-gray-200 pb-2 mt-4">
               <Link
-                href="/recharge-history"
+                href={`/recharge-history/${userData && userData.id}`}
                 className="text-black flex justify-between  font-bold"
               >
                 <h2>Recharge Records</h2>
