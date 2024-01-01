@@ -87,6 +87,7 @@ export const transactionInit = async ({ phoneNumber, amount, type }) => {
 };
 
 export const createInvestment = async ({
+  productId,
   phoneNumber,
   productName,
   productPrice,
@@ -99,6 +100,7 @@ export const createInvestment = async ({
       new Request(createURL("/api/investment"), {
         method: "POST",
         body: JSON.stringify({
+          productId,
           phoneNumber,
           productName,
           productPrice,

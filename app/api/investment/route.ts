@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
   const {
+    productId,
     phoneNumber,
     productName,
     productPrice,
@@ -38,6 +39,11 @@ export const POST = async (req: Request) => {
       cycle: revenueCycle,
       dailyIncome,
       totalIncome,
+      product: {
+        connect: {
+          id: productId,
+        },
+      },
     },
   });
 
