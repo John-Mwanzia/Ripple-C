@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import toast from "react-hot-toast";
+import UserPayForm from "@/app/components/userpay/UserPayForm";
 
 export default function page() {
   const [copyAmoutSuccess, setCopyAmountSuccess] = useState(false);
@@ -115,24 +116,9 @@ export default function page() {
           * Get transaction id from mpesa payment notification SMS
         </p>
       </div>
-      {/* dotted border bottom */}
-      <form
-        action=""
-        className="mt-4 pb-6 px-4 border-b border-dotted border-gray-300"
-      >
-        <input
-          type="text"
-          placeholder="Transaction id [Eg : RLQ79PM6J]"
-          className="border px-2 py-1 rounded-lg outline-none  w-full"
-        />
 
-        <button
-          type="submit"
-          className="bg-[#0FB020]/70 px-4 py-1 rounded-lg mt-4 w-full shadow-md"
-        >
-          I have made the payment
-        </button>
-      </form>
+      <UserPayForm />
+
       <div className="mt-4 flex px-6 mb-4 ">
         <Image
           src="/scanner.png"

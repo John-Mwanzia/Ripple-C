@@ -9,6 +9,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Store } from "@/contexts/store";
+import Link from "next/link";
 
 export default function Header() {
   const [decodedToken, setDecodedToken] = React.useState(null);
@@ -16,6 +17,7 @@ export default function Header() {
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { token } = state;
+  console.log(token);
 
   const getAvatarFallback = () => {
     if (decodedToken && decodedToken.name) {
@@ -97,6 +99,25 @@ export default function Header() {
                       {decodedToken && decodedToken.phoneNumber}
                     </p>
                   </div>
+                  {/* create link for admins page if isAdmin is true and only visible if the is admin */}
+                  {decodedToken && decodedToken.isAdmin && (
+                    <div className="  border-b border-gray-200 p-2 mt-4 pb-3">
+                      <Link
+                        href={`/admin/${decodedToken.id}`}
+                        className="flex items-center gap-4"
+                      >
+                        <Image
+                          src="https://cdn-icons-png.flaticon.com/128/1769/1769328.png"
+                          alt="admin"
+                          width={20}
+                          height={20}
+                        />
+                        <p className=" text-gray-800 font-semibold">
+                          Admin Dashboard
+                        </p>
+                      </Link>
+                    </div>
+                  )}
                 </div>
                 <button
                   onClick={handleLogout}
