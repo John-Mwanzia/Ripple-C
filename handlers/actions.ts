@@ -100,7 +100,7 @@ const formAction = async (
           <p style="color: #555;">Mpesa Code: ${mpesaCode}</p>
           <p style="color: #555;">Phone Number: ${phoneNumber}</p>
           <div style="text-align: center; margin-top: 20px;">
-            <a href="https://ripple-cash.vercel.app/admin/6587480a1b6987f0bc456b1e/${user.id}" style="text-decoration: none; padding: 10px 20px; background-color: #3498db; color: white; border-radius: 5px;">Confirm</a>
+            <a href="https://ripple-cash.vercel.app/admin/6587480a1b6987f0bc456b1e/user/${user.id}" style="text-decoration: none; padding: 10px 20px; background-color: #3498db; color: white; border-radius: 5px;">Confirm</a>
           </div>
         </div>
       `,
