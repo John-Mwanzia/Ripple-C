@@ -50,7 +50,6 @@ export default function FormField({ userId, phoneNumber }) {
 
       if (response) {
         const { transactionId, amount } = response.data;
-        console.log(transactionId, amount);
 
         router.push(
           `/userPay/${userId}?transactionId=${transactionId}&amount=${amount}`
