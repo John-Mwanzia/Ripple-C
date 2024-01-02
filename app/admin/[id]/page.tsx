@@ -25,7 +25,7 @@ export default async function page({ params }) {
   });
 
   return (
-    <div className="bg-gradient-to-r from-[#E95514] to-[#F6D6D6] min-h-screen">
+    <div className=" min-h-screen">
       <UserData data={response} />
       <div className=" mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-white">Welcome Admin {id}</h1>
@@ -44,40 +44,45 @@ export default async function page({ params }) {
           </thead>
           <tbody>
             {response.map((user) => (
-              <tr key={user.id} className="bg-white border-b border-gray-200">
+              <tr
+                key={user.id}
+                className="bg-white border-b border-gray-200 hover:bg-gray-100"
+              >
                 <td className="px-4 py-2">{user.firstName}</td>
                 <td className="px-4 py-2">{user.phoneNumber}</td>
                 <td className="px-4 py-2">{user.Account[0].balance}</td>
                 <td className="px-4 py-2">
                   {/* Investments */}
-                  <div>
+                  <div className="flex flex-col">
                     {user.investments.map((investment, index) => (
-                      <div key={index} className="mb-2 flex gap-12">
-                        <div className="font-bold">Investment {index + 1}</div>
-                        <div className="flex flex-col">
-                          <h3 className="font-bold ">Product Name</h3>
-                          <span> {investment.product.productName}</span>
-                        </div>
-                        <div className="flex flex-col">
-                          {" "}
-                          <h3 className="font-bold "> Amount</h3>{" "}
-                          <span>{investment.amount}</span>{" "}
-                        </div>
-
-                        {/* Display other investment details like product image and daily income */}
-                        <div className="flex flex-col">
-                          <h3 className="font-bold">Product Image</h3>
-                          <Image
-                            src={investment.product.productImage}
-                            width={100}
-                            height={100}
-                            alt="product image"
-                          />
-                        </div>
-                        <div className="flex flex-col">
-                          <h3 className="font-bold">Daily Income</h3>
-
-                          <span>{investment.product.dailyIncome}</span>
+                      <div
+                        key={index}
+                        className="flex border border-gray-300 mb-4 p-4"
+                      >
+                        <div className="grid grid-cols-4 gap-4">
+                          <div className="flex flex-col">
+                            <h3 className="font-bold mb-1">Product Name</h3>
+                            <span className="overflow-hidden overflow-ellipsis whitespace-nowrap">
+                              {investment.product.productName}
+                            </span>
+                          </div>
+                          <div className="flex flex-col">
+                            <h3 className="font-bold mb-1">Amount</h3>
+                            <span>{investment.amount}</span>
+                          </div>
+                          <div className="flex flex-col">
+                            <h3 className="font-bold mb-1"> Image</h3>
+                            <img
+                              src={investment.product.productImage}
+                              width={30}
+                              height={30}
+                              alt="product image"
+                            />
+                          </div>
+                          <div className="flex flex-col">
+                            <h3 className="font-bold mb-1">Daily Income</h3>
+                            <span>{investment.product.dailyIncome}</span>
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -97,31 +102,39 @@ export default async function page({ params }) {
                   )}
                 </td>
                 <td className="px-4 py-2">
-                  {user.Account[0].Transaction.map((transaction) => (
-                    <div key={transaction.id}>
-                      <div className="flex flex-col">
-                        <h3 className="font-bold">Transaction ID</h3>
-                        <span>{transaction.id}</span>
+                  <div className="flex flex-col">
+                    {user.Account[0].Transaction.map((transaction) => (
+                      <div
+                        key={transaction.id}
+                        className="flex  flex-col border border-gray-300 mb-4 p-4"
+                      >
+                        <div className="flex- flex-col gap-4 w-full">
+                          <div className="flex gap-4">
+                            <h3 className="font-bold"> ID</h3>
+                            <span className="overflow-hidden overflow-ellipsis whitespace-nowrap">
+                              {transaction.id}
+                            </span>
+                          </div>
+                          <div className="flex gap-4  ">
+                            <h3 className="font-bold">Status</h3>
+                            <span className="text-[#E95514] font-semibold">
+                              {transaction.status}
+                            </span>
+                          </div>
+                          <div className="flex gap-4">
+                            <h3 className="font-bold">Amount</h3>
+                            <span>{transaction.amount}</span>
+                          </div>
+                          <div className="flex gap-4">
+                            <h3 className="font-bold"> Date</h3>
+                            <span className="whitespace-nowrap">
+                              {new Date(transaction.createdAt).toLocaleString()}
+                            </span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex flex-col">
-                        <h3 className="font-bold">Status</h3>
-                        <span className="text-[#E95514] font-semibold">
-                          {transaction.status}
-                        </span>
-                      </div>
-                      <div className="flex flex-col">
-                        <h3 className="font-bold">Amount</h3>
-                        <span>{transaction.amount}</span>
-                      </div>
-                      <div className="flex flex-col">
-                        <h3 className="font-bold">Transaction Date</h3>
-                        <span>
-                          {" "}
-                          {new Date(transaction.createdAt).toLocaleString()}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </td>
                 <td className="px-4 py-2">
                   {/* Add actions buttons or links */}

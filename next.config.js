@@ -9,6 +9,7 @@ const nextConfig = {
       "cdn2.iconfinder.com",
       "encrypted-tbn0.gstatic.com",
       "hips.hearstapps.com",
+      "officemart.co.ke",
     ],
   },
 };
