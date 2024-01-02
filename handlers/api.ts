@@ -138,3 +138,22 @@ export const paymentConfirm = async (userId, amount) => {
     throw new Error(error);
   }
 };
+
+export const declinePayment = async (userId) => {
+  try {
+    const res = await fetch(
+      new Request(createURL("/api/declinePayment"), {
+        method: "POST",
+        body: JSON.stringify({
+          userId,
+        }),
+      })
+    );
+
+    if (res.ok) {
+      return res.json();
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};

@@ -57,7 +57,7 @@ export default async function page({ params }) {
               paymentId={paymentId}
               amount={recentTransaction.amount}
             />
-            <DeclineButton />
+            <DeclineButton userId={paymentId} />
           </div>
         </div>
       </div>
