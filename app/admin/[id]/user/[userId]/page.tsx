@@ -105,9 +105,15 @@ export default async function page({ params }) {
                 key={transaction.id}
                 className="border-b border-gray-200 py-4"
               >
+                {/* transaction id */}
                 <div className="flex items-center justify-between">
-                  <span className="font-semibold">ID:</span>
+                  <span className="font-semibold">Transaction ID:</span>
                   <span>{transaction.id}</span>
+                </div>
+                {/* ... other transaction details ... */}
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold">MPESA Code:</span>
+                  <span>{transaction.mpesaCode || "N/A"}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="font-semibold">Status:</span>
@@ -121,10 +127,22 @@ export default async function page({ params }) {
                     {transaction.status}
                   </span>
                   {transaction.type === "RECHARGE" &&
-                    transaction.status === "PENDING" && (
-                      <button className="bg-blue-500 text-white px-3 py-1 ml-4 rounded">
-                        Confirm
-                      </button>
+                    transaction.status === "PENDING" &&
+                    transaction.mpesaCode && (
+                      <>
+                        <button
+                          className="bg-blue-500 text-white px-3 py-1 mr-2 rounded"
+                          //   onClick={() => confirmRecharge(transaction.id)}
+                        >
+                          Confirm
+                        </button>
+                        <button
+                          className="bg-red-500 text-white px-3 py-1 rounded"
+                          //   onClick={() => declineTransaction(transaction.id)}
+                        >
+                          Decline
+                        </button>
+                      </>
                     )}
                 </div>
 
