@@ -17,7 +17,6 @@ export default function Header() {
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { token } = state;
-  console.log(token);
 
   const getAvatarFallback = () => {
     if (decodedToken && decodedToken.name) {
@@ -98,6 +97,28 @@ export default function Header() {
                     <p className=" text-gray-800 font-semibold">
                       {decodedToken && decodedToken.phoneNumber}
                     </p>
+                  </div>
+                  {/* a link for user investments but first check if there is id in token */}
+
+                  <div className=" flex items-center mt-4 gap-4 border-b border-gray-200 pb-3  ">
+                    <Image
+                      src="https://cdn-icons-png.flaticon.com/128/846/846043.png"
+                      alt="phone number"
+                      width={20}
+                      height={20}
+                    />
+                    <Link
+                      href={
+                        decodedToken && decodedToken.id
+                          ? `/investments/${decodedToken.id}`
+                          : "/sign-in"
+                      }
+                      className="flex items-center gap-4"
+                    >
+                      <p className=" text-gray-800 font-semibold">
+                        My Investments
+                      </p>
+                    </Link>
                   </div>
                   {/* create link for admins page if isAdmin is true and only visible if the is admin */}
                   {decodedToken && decodedToken.isAdmin && (
