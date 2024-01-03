@@ -87,69 +87,75 @@ export default function Products({ products }) {
   };
 
   return (
-    <div className="mt-4 pb-20">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {products.map((product, index) => (
-          <div
-            key={product.productName}
-            className="bg-white shadow-md rounded-md p-4"
-          >
-            <div className="flex justify-between">
-              <div>
-                <p className="text-gray-800 font-semibold">
-                  {product.productName}
-                </p>
-                <p className="text-gray-500 text-sm">
-                  Price: {product.productPrice}
-                </p>
+    <div className="mt-4 pb-20 flex justify-center    items-center">
+      <div className="w-[95%] xl:w-[80%] flex justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {products.map((product, index) => (
+            <div
+              key={product.productName}
+              className="bg-white shadow-md rounded-md p-4"
+            >
+              <div className="flex justify-between">
+                <div>
+                  <p className="text-gray-800 font-semibold">
+                    {product.productName}
+                  </p>
+                  <p className="text-gray-500 text-sm">
+                    Price: {product.productPrice}
+                  </p>
+                </div>
+                <div>
+                  <img
+                    src={product.productImage}
+                    alt=""
+                    className="w-20 h-20"
+                  />
+                </div>
               </div>
-              <div>
-                <img src={product.productImage} alt="" className="w-20 h-20" />
+              <div className="flex justify-between mt-4">
+                <div>
+                  <p className="text-gray-500 text-sm">Revenue Cycle</p>
+                  <p className="text-[#F0C113]/80 font-semibold">
+                    {product.cycle} days
+                  </p>
+                </div>
+                <div>
+                  <p className="text-gray-500 text-sm">Daily Income</p>
+                  <p className="text-[#E95514]/80 font-semibold">
+                    Ksh {product.dailyIncome}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-gray-500 text-sm">Total Income</p>
+                  <p className="text-gray-800 font-semibold">
+                    Ksh {product.totalIncome}
+                  </p>
+                </div>
+              </div>
+              <div className="flex justify-end mt-4">
+                {loadingIndices.includes(index) ? (
+                  <Loader width={30} height={30} />
+                ) : (
+                  <button
+                    onClick={() => handleBuyNow(product, index)} // Pass index here
+                    className="bg-[#E95514]/80 text-white px-4 py-2 rounded-md"
+                  >
+                    Buy Now
+                  </button>
+                )}
               </div>
             </div>
-            <div className="flex justify-between mt-4">
-              <div>
-                <p className="text-gray-500 text-sm">Revenue Cycle</p>
-                <p className="text-[#F0C113]/80 font-semibold">
-                  {product.cycle} days
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-500 text-sm">Daily Income</p>
-                <p className="text-[#E95514]/80 font-semibold">
-                  Ksh {product.dailyIncome}
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-500 text-sm">Total Income</p>
-                <p className="text-gray-800 font-semibold">
-                  Ksh {product.totalIncome}
-                </p>
-              </div>
-            </div>
-            <div className="flex justify-end mt-4">
-              {loadingIndices.includes(index) ? (
-                <Loader width={30} height={30} />
-              ) : (
-                <button
-                  onClick={() => handleBuyNow(product, index)} // Pass index here
-                  className="bg-[#E95514]/80 text-white px-4 py-2 rounded-md"
-                >
-                  Buy Now
-                </button>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      {error && (
-        <Modal
-          error={error}
-          onClose={handleCloseModal}
-          onRecharge={handleRecharge}
-        />
-      )}
+        {error && (
+          <Modal
+            error={error}
+            onClose={handleCloseModal}
+            onRecharge={handleRecharge}
+          />
+        )}
+      </div>
     </div>
   );
 }
