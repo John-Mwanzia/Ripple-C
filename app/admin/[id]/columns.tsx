@@ -14,6 +14,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
+
+const pathArray =
+  typeof window !== "undefined" ? window.location.pathname.split("/") : [];
+const adminId = pathArray[pathArray.length - 1];
 
 export type User = {
   id: string;
@@ -154,7 +159,11 @@ export const columns: ColumnDef<User>[] = [
               Copy user ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={`/admin/${adminId}/user/${user.id}`}>
+                View user details
+              </Link>
+            </DropdownMenuItem>
             <DropdownMenuItem>View payment details</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
