@@ -35,7 +35,7 @@ export default async function page({ params }) {
       )}
 
       {/* Primary Referrals */}
-      <h1 className="text-center mt-6">
+      <h1 className="text-center mt-6 mb-4">
         Primary Referrals ({response.referee.length})
       </h1>
       <div className="flex flex-col gap-4">
@@ -54,7 +54,7 @@ export default async function page({ params }) {
       </div>
 
       {/* Secondary Referrals */}
-      <h1 className="text-center mt-6">
+      <h1 className="text-center mt-6 mb-4">
         Secondary Referrals ({response.secondaryReferees.length})
       </h1>
       <div className="flex flex-col gap-4">
@@ -62,9 +62,9 @@ export default async function page({ params }) {
           <Badge
             key={secondaryReferee.id}
             variant="secondary"
-            className="w-full"
+            className="w-[80%] mx-auto"
           >
-            <div className="flex gap-3 justify-center items-center">
+            <div className="flex  gap-3 justify-center items-center">
               <h3 className="font-semibold text-xl">
                 {secondaryReferee.firstName}
               </h3>
