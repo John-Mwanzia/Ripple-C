@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
   const request = await req.json();
-  const { phoneNumber, firstName, password, referralCode,referrer } = request;
+  const { phoneNumber, firstName, password, referralCode, referrer } = request;
   const user = await prisma.user.findUnique({
     where: {
       phoneNumber: phoneNumber,
@@ -17,8 +17,6 @@ export const POST = async (req: Request) => {
     );
   }
 
-  
-
   const hashedPassword = await hashPassword(password);
   const newUser = await prisma.user.create({
     data: {
@@ -29,22 +27,37 @@ export const POST = async (req: Request) => {
       referrer: {
         connect: {
           referralCode: referrer,
-        }
-      }
+        },
+      },
     },
   });
+
+  // Connect the secondary referrer, if applicable
+  if (referrer) {
+    const secondaryReferrer = await prisma.user.findUnique({
+      where: { referralCode: referrer },
+      select: { id: true }, // Optimize query by selecting only the necessary field
+    });
+    if (secondaryReferrer) {
+      await prisma.user.update({
+        where: { id: newUser.id },
+        data: {
+          secondaryReferrer: {
+            connect: { id: secondaryReferrer.id }, // Connect to secondary referrer
+          },
+        },
+      });
+    }
+  }
 
   const newAccount = await prisma.account.create({
     data: {
       userId: newUser.id.toString(),
       balance: 50.0,
-      level: 1, 
-      dailyEarningRate: 0.0, 
-     
+      level: 1,
+      dailyEarningRate: 0.0,
     },
   });
-  
-
 
   const token = generateToken(newUser);
 
