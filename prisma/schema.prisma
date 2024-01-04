@@ -11,21 +11,25 @@ datasource db {
 }
 
 model User {
-  id           String       @id @default(auto()) @map("_id") @db.ObjectId
-  phoneNumber  String       @unique
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  phoneNumber  String  @unique
   firstName    String?
   password     String
-  isAdmin      Boolean      @default(false)
-  referralCode String       @unique
-  referrer     User?        @relation("ReferrerReferral", fields: [referrerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  referee      User[]       @relation("ReferrerReferral")
-  referrerId   String?      @db.ObjectId
-  accounts     Account[]    @relation("UserAccounts")
-  investments  Investment[] @relation("InvestmentUser")
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+  isAdmin      Boolean @default(false)
+  referralCode String  @unique
+  referrer     User?   @relation("ReferrerReferral", fields: [referrerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  referee      User[]  @relation("ReferrerReferral")
 
-  Account Account[]
+  referrerId          String? @db.ObjectId
+  secondaryReferees   User[]  @relation("ReferrerSecondaryReferral")
+  secondaryReferrer   User?   @relation("ReferrerSecondaryReferral", fields: [secondaryReferrerId], references: [id], onDelete: NoAction, onUpdate: NoAction) // Add missing fields and references
+  secondaryReferrerId String? @db.ObjectId
+
+  accounts    Account[]    @relation("UserAccounts")
+  investments Investment[] @relation("InvestmentUser")
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  Account     Account[]
 }
 
 model Account {
