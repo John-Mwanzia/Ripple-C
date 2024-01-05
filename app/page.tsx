@@ -7,7 +7,7 @@ export default async function page() {
   const response = await prisma.product.findMany();
 
   return (
-    <div className="bg-white">
+    <div className="bg-white overflow-x-hidden">
       <Header />
       <Products products={response} />
       <BottomNav />
