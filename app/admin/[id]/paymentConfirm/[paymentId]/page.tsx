@@ -4,9 +4,10 @@ import prisma from "@/modules/db";
 import React from "react";
 
 export default async function page({ params, searchParams }) {
-  console.log(searchParams);
+  const id = searchParams.paymentId;
 
   const { paymentId } = params;
+  const userId = paymentId;
 
   const user = await prisma.user.findUnique({
     where: {
@@ -25,7 +26,11 @@ export default async function page({ params, searchParams }) {
     },
   });
 
-  const recentTransaction = user.Account[0].Transaction[0];
+  const transaction = await prisma.transaction.findUnique({
+    where: {
+      id,
+    },
+  });
 
   return (
     <div className="container mx-auto p-4">
@@ -44,22 +49,23 @@ export default async function page({ params, searchParams }) {
           </div>
           <div className="flex items-center mb-4">
             <h2 className="text-lg font-medium mr-3">Amount:</h2>
-            <span className="text-gray-700">{recentTransaction.amount}</span>
+            <span className="text-gray-700">{transaction.amount}</span>
           </div>
           <div className="flex items-center mb-4">
             <h2 className="text-lg font-medium mr-3">Status:</h2>
-            <span className="text-gray-700">{recentTransaction.status}</span>
+            <span className="text-gray-700">{transaction.status}</span>
           </div>
           <div className="flex items-center mb-4">
             <h2 className="text-lg font-medium mr-3">MPESA Code:</h2>
-            <span className="text-gray-700">{recentTransaction.mpesaCode}</span>
+            <span className="text-gray-700">{transaction.mpesaCode}</span>
           </div>
           <div className="flex items-center mt-4">
             <ConfirmButton
-              paymentId={paymentId}
-              amount={recentTransaction.amount}
+              userId={userId}
+              amount={transaction.amount}
+              id={id}
             />
-            <DeclineButton userId={paymentId} />
+            <DeclineButton userId={paymentId} id={id} />
           </div>
         </div>
       </div>

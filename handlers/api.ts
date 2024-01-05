@@ -119,7 +119,7 @@ export const createInvestment = async ({
   }
 };
 
-export const paymentConfirm = async (userId, amount) => {
+export const paymentConfirm = async (userId, amount, id) => {
   try {
     const res = await fetch(
       new Request(createURL("/api/paymentConfirm"), {
@@ -127,6 +127,7 @@ export const paymentConfirm = async (userId, amount) => {
         body: JSON.stringify({
           userId,
           amount,
+          id,
         }),
       })
     );
@@ -139,13 +140,14 @@ export const paymentConfirm = async (userId, amount) => {
   }
 };
 
-export const declinePayment = async (userId) => {
+export const declinePayment = async (userId, id) => {
   try {
     const res = await fetch(
       new Request(createURL("/api/declinePayment"), {
         method: "POST",
         body: JSON.stringify({
           userId,
+          id,
         }),
       })
     );

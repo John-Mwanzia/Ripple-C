@@ -2,7 +2,7 @@ import prisma from "@/modules/db";
 import { NextResponse } from "next/server";
 
 export const POST = async (req: Request, res: Response) => {
-  const { userId, amount } = await req.json();
+  const { userId, amount, id } = await req.json();
 
   const user = await prisma.user.findUnique({
     where: {
@@ -25,16 +25,27 @@ export const POST = async (req: Request, res: Response) => {
     return NextResponse.json({ status: "error", message: "User not found" });
   }
 
-  const recentTransaction = user.Account[0].Transaction[0];
+  const transaction = await prisma.transaction.findUnique({
+    where: {
+      id: id,
+    },
+  });
 
-  if (recentTransaction.status === "COMPLETED") {
+  if (transaction.status === "COMPLETED") {
     return NextResponse.json({
       status: "error",
       message: "Payment already confirmed",
     });
   }
+  // check if it already failed
+  if (transaction.status === "FAILED") {
+    return NextResponse.json({
+      status: "error",
+      message: "Payment already declined",
+    });
+  }
 
-  if (recentTransaction.amount !== amount) {
+  if (transaction.amount !== amount) {
     return NextResponse.json({
       status: "error",
       message: "Amount does not match",
@@ -43,7 +54,7 @@ export const POST = async (req: Request, res: Response) => {
 
   const updatedTransaction = await prisma.transaction.update({
     where: {
-      id: recentTransaction.id,
+      id,
     },
     data: {
       status: "COMPLETED",

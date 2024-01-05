@@ -5,7 +5,7 @@ import React from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-export default function DeclineButton({ userId }: { userId: string }) {
+export default function DeclineButton({ userId, id }) {
   const router = useRouter();
   const handleDecline = async () => {
     // Alert user if they are sure they want to decline payment or not
@@ -13,7 +13,7 @@ export default function DeclineButton({ userId }: { userId: string }) {
     if (!confirm) return;
 
     // Send request to decline payment
-    const res = await declinePayment(userId);
+    const res = await declinePayment(userId, id);
 
     // If there is an error, alert the user
     if (res.status === "error") {

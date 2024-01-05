@@ -1,3 +1,5 @@
+import ConfirmButton from "@/app/components/paymentConfirm/ConfirmButton";
+import DeclineButton from "@/app/components/paymentConfirm/DeclineButton";
 import prisma from "@/modules/db";
 import React from "react";
 
@@ -26,6 +28,7 @@ export default async function page({ params }) {
       },
     },
   });
+
   return (
     <div className="bg-gray-50 min-h-screen mx-auto p-4">
       <div className="bg-white rounded-lg shadow-md p-4">
@@ -130,18 +133,13 @@ export default async function page({ params }) {
                     transaction.status === "PENDING" &&
                     transaction.mpesaCode && (
                       <>
-                        <button
-                          className="bg-blue-500 text-white px-3 py-1 mr-2 rounded"
-                          //   onClick={() => confirmRecharge(transaction.id)}
-                        >
-                          Confirm
-                        </button>
-                        <button
-                          className="bg-red-500 text-white px-3 py-1 rounded"
-                          //   onClick={() => declineTransaction(transaction.id)}
-                        >
-                          Decline
-                        </button>
+                        <ConfirmButton
+                          userId={userId}
+                          amount={transaction.amount}
+                          id={transaction.id}
+                        />
+
+                        <DeclineButton userId={userId} id={transaction.id} />
                       </>
                     )}
                 </div>

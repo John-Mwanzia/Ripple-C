@@ -5,7 +5,7 @@ import React from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-export default function ConfirmButton({ paymentId, amount }) {
+export default function ConfirmButton({ userId, amount, id }) {
   const router = useRouter();
   const handleConfirm = async () => {
     // Alert user if they are sure they want to confirm payment or not
@@ -13,8 +13,8 @@ export default function ConfirmButton({ paymentId, amount }) {
     if (!confirm) return;
 
     // Send request to confirm payment
-    const userId = paymentId;
-    const res = await paymentConfirm(userId, amount);
+
+    const res = await paymentConfirm(userId, amount, id);
 
     // If there is an error, alert the user
     if (res.status === "error") {
