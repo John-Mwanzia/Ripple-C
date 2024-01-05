@@ -24,6 +24,7 @@ model User {
   secondaryReferees   User[]  @relation("ReferrerSecondaryReferral")
   secondaryReferrer   User?   @relation("ReferrerSecondaryReferral", fields: [secondaryReferrerId], references: [id], onDelete: NoAction, onUpdate: NoAction) // Add missing fields and references
   secondaryReferrerId String? @db.ObjectId
+  inviteRevenue       Float?  @default(0)
 
   accounts    Account[]    @relation("UserAccounts")
   investments Investment[] @relation("InvestmentUser")
