@@ -38,8 +38,6 @@ export const POST = async (req: Request) => {
       },
     });
 
-    console.log(transaction);
-
     // return the transaction
     return NextResponse.json({ data: transaction }, { status: 200 });
   } catch (error) {

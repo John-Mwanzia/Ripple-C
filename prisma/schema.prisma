@@ -52,7 +52,7 @@ model Transaction {
   type          TransactionType
   amount        Float
   status        TransactionStatus
-  transactionId String? // Optional field for external transaction IDs
+  transactionId String            @unique
   mpesaCode     String? // Optional field for mpesa transaction codes
   createdAt     DateTime          @default(now())
 }

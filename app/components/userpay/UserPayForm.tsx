@@ -4,10 +4,15 @@ import React from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-export default function UserPayForm({ firstName, phoneNumber, amount }) {
+export default function UserPayForm({
+  firstName,
+  phoneNumber,
+  amount,
+  paymentId,
+}) {
   const router = useRouter();
   const handleSubmit = async (formData: FormData) => {
-    const res = await formAction(formData, phoneNumber, amount);
+    const res = await formAction(formData, phoneNumber, amount, paymentId);
 
     if (res?.status === "error") {
       toast.error(res.message);

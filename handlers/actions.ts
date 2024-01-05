@@ -7,7 +7,8 @@ import { NextResponse } from "next/server";
 const formAction = async (
   formData: FormData,
   phoneNumber: string,
-  amount: number
+  amount: number,
+  paymentId: string
 ) => {
   const mpesaCode = formData.get("MpesaCode");
 
@@ -38,9 +39,14 @@ const formAction = async (
     throw new Error("Account not found");
   }
 
-  const recentTransaction = account.Transaction[0];
+  // use transactionId to fetch the transaction instead of always using the first one
+  const transaction = await prisma.transaction.findUnique({
+    where: {
+      id: paymentId,
+    },
+  });
 
-  if (!recentTransaction) {
+  if (!transaction) {
     throw new Error("Transaction not found");
   }
 
@@ -48,7 +54,7 @@ const formAction = async (
   try {
     const transaction = await prisma.transaction.update({
       where: {
-        id: recentTransaction.id,
+        id: paymentId,
       },
       data: {
         mpesaCode: mpesaCode as string,
@@ -60,6 +66,7 @@ const formAction = async (
     }
 
     //SEND AN EMAIL TO ADMIN WITH THE TRANSACTION DETAILS
+    const link = `https://ripple-cash.vercel.app/admin/6587480a1b6987f0bc456b1e/paymentConfirm/${user.id}?transactionId=${paymentId}`;
 
     await sendMail({
       to: "jmwanzia@kabarak.ac.ke",
@@ -73,7 +80,7 @@ const formAction = async (
           <p style="color: #555;">Mpesa Code: ${mpesaCode}</p>
           <p style="color: #555;">Phone Number: ${phoneNumber}</p>
           <div style="text-align: center; margin-top: 20px;">
-            <a href="https://ripple-cash.vercel.app/admin/6587480a1b6987f0bc456b1e/paymentConfirm/${user.id}" style="text-decoration: none; padding: 10px 20px; background-color: #3498db; color: white; border-radius: 5px;">Confirm</a>
+            <a href="${link}" style="background-color: #333; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Confirm Payment</a>
           </div>
         </div>
       `,

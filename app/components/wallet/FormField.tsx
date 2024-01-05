@@ -40,6 +40,7 @@ export default function FormField({ userId, phoneNumber }) {
 
     try {
       const response = await transactionInit(data);
+
       // if amount is less than 800, show error and return
       if (amount < 800) {
         toast.error("Minimum recharge amount is Ksh: 800");
@@ -49,10 +50,10 @@ export default function FormField({ userId, phoneNumber }) {
       // If response is successful, redirect to /userPay/${userId} with transactionId and amount
 
       if (response) {
-        const { transactionId, amount } = response.data;
+        const { transactionId, amount, id } = response.data;
 
         router.push(
-          `/userPay/${userId}?transactionId=${transactionId}&amount=${amount}`
+          `/userPay/${userId}?transactionId=${transactionId}&amount=${amount} &id=${id}`
         );
       } else {
         // Handle error

@@ -14,6 +14,7 @@ export default function Details({ firstName, phoneNumber }) {
   const searchParams = useSearchParams();
 
   const transactionId = searchParams.get("transactionId");
+  const id = searchParams.get("id");
   const amount = searchParams.get("amount");
 
   const copyToClipboard = (text, setCopySuccess) => {
@@ -111,6 +112,7 @@ export default function Details({ firstName, phoneNumber }) {
         firstName={firstName}
         phoneNumber={phoneNumber}
         amount={amount}
+        paymentId={id}
       />
     </>
   );

@@ -3,7 +3,9 @@ import DeclineButton from "@/app/components/paymentConfirm/DeclineButton";
 import prisma from "@/modules/db";
 import React from "react";
 
-export default async function page({ params }) {
+export default async function page({ params, searchParams }) {
+  console.log(searchParams);
+
   const { paymentId } = params;
 
   const user = await prisma.user.findUnique({
