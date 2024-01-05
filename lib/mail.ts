@@ -22,7 +22,6 @@ export async function sendMail({
 
   try {
     const result = await transporter.verify();
-    console.log(result);
   } catch (error) {
     console.log(error);
     return;
@@ -35,7 +34,6 @@ export async function sendMail({
       subject,
       html: body,
     });
-    console.log(info);
   } catch (error) {
     console.log(error);
   }

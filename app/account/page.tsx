@@ -132,10 +132,10 @@ export default function page() {
             </div>
             <div className="px-4 border-b-2 border-gray-200 pb-2 mt-4">
               <Link
-                href="/invite-flow"
+                href={`/invite-revenue/${userData && userData.id}`}
                 className="text-black flex justify-between  font-bold"
               >
-                <h2>Invite flow</h2>
+                <h2>Invite revenue</h2>
                 <Image
                   src="https://cdn-icons-png.flaticon.com/128/709/709586.png"
                   alt="right arrow"

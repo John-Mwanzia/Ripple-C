@@ -86,17 +86,7 @@ export const POST = async (req: Request, res: Response) => {
     });
   }
 
-  // update transaction status
-  const updatedTransaction = await updateTransactionStatus(id, "COMPLETED");
-
-  //  Update user account balance
-
   const acccount = user.Account[0];
-
-  const updatedAccount = await updateAccountBalance(
-    acccount.id,
-    acccount.balance + amount
-  );
 
   try {
     // this invite revenue will be awarded to the referrer(10%) and the secondary referrer(4%) to the current user
@@ -113,6 +103,8 @@ export const POST = async (req: Request, res: Response) => {
         createdAt: "asc",
       },
     });
+
+    console.log(firstCompletedTransaction);
 
     // if there is no other completed transaction then this transaction will be the first completed transaction
     if (!firstCompletedTransaction) {
@@ -136,6 +128,8 @@ export const POST = async (req: Request, res: Response) => {
           },
         });
 
+        console.log({ "Referrer ": referrer });
+
         // check if the referrer has a secondary referrer
         if (referrer.referrerId) {
           // get the secondary referrer
@@ -156,6 +150,8 @@ export const POST = async (req: Request, res: Response) => {
             },
           });
 
+          console.log({ "Secondary Referrer": secondaryReferrer });
+
           // award the referrer 10% of the amount of the transaction to the account and also the invite revenue of the referrer will be updated
           const updatedReferrerAccount = await prisma.account.update({
             where: {
@@ -168,6 +164,8 @@ export const POST = async (req: Request, res: Response) => {
             },
           });
 
+          console.log({ "Updated Referrer Account": updatedReferrerAccount });
+
           const updatedReferrer = await prisma.user.update({
             where: {
               id: referrer.id,
@@ -178,6 +176,8 @@ export const POST = async (req: Request, res: Response) => {
               },
             },
           });
+
+          console.log({ "Updated Referrer": updatedReferrer });
 
           // award the secondary referrer 4% of the amount of the transaction to the account
           // and also the invite revenue of the secondary referrer will be updated
@@ -192,6 +192,10 @@ export const POST = async (req: Request, res: Response) => {
             },
           });
 
+          console.log({
+            "Updated Secondary Referrer Account": updatedSecondaryReferrerAccount,
+          });
+
           const updatedSecondaryReferrer = await prisma.user.update({
             where: {
               id: secondaryReferrer.id,
@@ -202,12 +206,29 @@ export const POST = async (req: Request, res: Response) => {
               },
             },
           });
+
+          console.log({
+            "Updated Secondary Referrer": updatedSecondaryReferrer,
+          });
         }
       }
     }
 
     // if there is another completed transaction, this transaction will not be the first completed transaction,
     // and no one will be awarded invite revenue, just continue
+
+    if (firstCompletedTransaction) {
+      console.log("there is another completed transaction");
+    }
+
+    // update transaction status
+    // Now proceed with updating transaction status and user account balance
+    const updatedTransaction = await updateTransactionStatus(id, "COMPLETED");
+
+    const updatedAccount = await updateAccountBalance(
+      acccount.id,
+      acccount.balance + amount
+    );
   } catch (error) {
     // Handle errors here (e.g., log them, send error response, etc.)
     console.error("Error occurred:", error);
