@@ -66,7 +66,7 @@ const formAction = async (
     }
 
     //SEND AN EMAIL TO ADMIN WITH THE TRANSACTION DETAILS
-    const link = `https://ripple-cash.vercel.app/admin/6587480a1b6987f0bc456b1e/paymentConfirm/${user.id}?paymentId=${paymentId}`;
+    const link = `https://ripple-c.vercel.app/admin/6587480a1b6987f0bc456b1e/paymentConfirm/${user.id}?paymentId=${paymentId}`;
 
     await sendMail({
       to: "jmwanzia@kabarak.ac.ke",
