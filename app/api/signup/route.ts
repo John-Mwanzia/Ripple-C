@@ -14,10 +14,10 @@ export const POST = async (req: Request) => {
   });
 
   if (!existingReferrer) {
-    return NextResponse.json(
-      { message: "Referrer not found" },
-      { status: 404 }
-    );
+    return NextResponse.json({
+      message: "Referrer not found",
+      status: "error",
+    });
   }
 
   const user = await prisma.user.findUnique({
@@ -27,10 +27,10 @@ export const POST = async (req: Request) => {
   });
 
   if (user) {
-    return NextResponse.json(
-      { message: "User already exists" },
-      { status: 409 }
-    );
+    return NextResponse.json({
+      message: "User already exists",
+      status: "error",
+    });
   }
 
   const hashedPassword = await hashPassword(password);

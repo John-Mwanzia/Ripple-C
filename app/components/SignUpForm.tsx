@@ -116,6 +116,11 @@ export default function SignUpForm() {
         const response = await SignUp(data);
         setIsLoading(false);
 
+        if (response && response.status === "error") {
+          toast.error(response.message);
+          return;
+        }
+
         if (response && response.token) {
           // Handle successful login
           ctxDispatch({ type: "LOGIN", payload: response.token });
