@@ -70,7 +70,7 @@ const formAction = async (
     const link = `https://ripple-c.vercel.app/admin/6587480a1b6987f0bc456b1e/paymentConfirm/${combinedIds}`;
 
     await sendMail({
-      to: "jmwanzia@kabarak.ac.ke",
+      to: "calebmuthama15@gmail.com",
       name: "Ripple Cash",
       subject: "New Transaction",
       body: `
@@ -160,7 +160,7 @@ const withdrawAction = async (amount, accountId) => {
     //SEND AN EMAIL TO ADMIN WITH THE TRANSACTION DETAILS
 
     await sendMail({
-      to: "jmwanzia@kabarak.ac.ke",
+      to: "dorcasnzioka481@gmail.com",
       name: "Ripple Cash",
       subject: "New Withdrawal Request",
       body: `
