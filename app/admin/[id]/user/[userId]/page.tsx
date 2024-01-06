@@ -1,5 +1,7 @@
 import ConfirmButton from "@/app/components/paymentConfirm/ConfirmButton";
 import DeclineButton from "@/app/components/paymentConfirm/DeclineButton";
+import ConfirmWithdraw from "@/app/components/withdrawConfirm/ConfirmWithdraw";
+import DeclineWithdraw from "@/app/components/withdrawConfirm/DeclineWithdraw";
 import prisma from "@/modules/db";
 import React from "react";
 
@@ -103,59 +105,113 @@ export default async function page({ params }) {
           </div>
           <div className="bg-white rounded-lg shadow-md p-4">
             <h3 className="text-lg font-semibold mb-2">Transactions</h3>
-            {user.Account[0].Transaction.map((transaction) => (
-              <div
-                key={transaction.id}
-                className="border-b border-gray-200 py-4"
-              >
-                {/* transaction id */}
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold">Transaction ID:</span>
-                  <span>{transaction.id}</span>
-                </div>
-                {/* ... other transaction details ... */}
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold">MPESA Code:</span>
-                  <span>{transaction.mpesaCode || "N/A"}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold">Status:</span>
-                  <span
-                    className={`text-${
-                      transaction.status === "PENDING"
-                        ? "[#E95514]"
-                        : "green-500"
-                    }`}
-                  >
-                    {transaction.status}
-                  </span>
-                  {transaction.type === "RECHARGE" &&
-                    transaction.status === "PENDING" &&
-                    transaction.mpesaCode && (
+            <div className="mt-4">
+              <h4 className="text-lg font-semibold mb-2">
+                Recharge Transactions
+              </h4>
+              {user.Account[0].Transaction.filter(
+                (transaction) => transaction.type === "RECHARGE"
+              ).map((transaction) => (
+                <div
+                  key={transaction.id}
+                  className="border-b border-gray-200 py-4"
+                >
+                  {/* Display RECHARGE transactions */}
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold">Transaction ID:</span>
+                    <span>{transaction.id}</span>
+                  </div>
+                  {/* ... other transaction details ... */}
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold">Status:</span>
+                    <span
+                      className={`text-${
+                        transaction.status === "PENDING"
+                          ? "text-[#E95514]"
+                          : "text-green-500"
+                      }`}
+                    >
+                      {transaction.status}
+                    </span>
+                    {transaction.status === "PENDING" && (
                       <>
                         <ConfirmButton
                           userId={userId}
                           amount={transaction.amount}
                           id={transaction.id}
                         />
-
                         <DeclineButton userId={userId} id={transaction.id} />
                       </>
                     )}
+                  </div>
+                  {/* ... other details ... */}
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold">Amount:</span>
+                    <span>{transaction.amount}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold">Date:</span>
+                    <span>
+                      {new Date(transaction.createdAt).toLocaleString()}
+                    </span>
+                  </div>
                 </div>
+              ))}
+            </div>
+            <div className="mt-4">
+              <h4 className="text-lg font-semibold mb-2">
+                Withdrawal Transactions
+              </h4>
+              {user.Account[0].Transaction.filter(
+                (transaction) => transaction.type === "WITHDRAWAL"
+              ).map((transaction) => (
+                <div
+                  key={transaction.id}
+                  className="border-b border-gray-200 py-4"
+                >
+                  {/* Display WITHDRAW transactions */}
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold">Transaction ID:</span>
+                    <span>{transaction.id}</span>
+                  </div>
+                  {/* ... other transaction details ... */}
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold">Status:</span>
+                    <span
+                      className={`text-${
+                        transaction.status === "PENDING"
+                          ? "text-[#E95514]"
+                          : "text-green-500"
+                      }`}
+                    >
+                      {transaction.status}
+                    </span>
+                    {transaction.status === "PENDING" && (
+                      <>
+                        <ConfirmWithdraw withdrawId={transaction.id} />
 
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold">Amount:</span>
-                  <span>{transaction.amount}</span>
+                        <DeclineWithdraw
+                          userId={userId}
+                          withdrawId={transaction.id}
+                          amount={transaction.amount}
+                        />
+                      </>
+                    )}
+                  </div>
+                  {/* ... other details ... */}
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold">Amount:</span>
+                    <span>{transaction.amount}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold">Date:</span>
+                    <span>
+                      {new Date(transaction.createdAt).toLocaleString()}
+                    </span>
+                  </div>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold">Date:</span>
-                  <span>
-                    {new Date(transaction.createdAt).toLocaleString()}
-                  </span>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

@@ -159,3 +159,43 @@ export const declinePayment = async (userId, id) => {
     throw new Error(error);
   }
 };
+
+export const withdrawConfirm = async (withdrawId) => {
+  try {
+    const res = await fetch(
+      new Request(createURL("/api/withdrawConfirm"), {
+        method: "POST",
+        body: JSON.stringify({
+          withdrawId,
+        }),
+      })
+    );
+
+    if (res.ok) {
+      return res.json();
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const withdrawDecline = async (withdrawId, userId, amount) => {
+  try {
+    const res = await fetch(
+      new Request(createURL("/api/withdrawDecline"), {
+        method: "POST",
+        body: JSON.stringify({
+          withdrawId,
+          userId,
+          amount,
+        }),
+      })
+    );
+
+    if (res.ok) {
+      return res.json();
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};

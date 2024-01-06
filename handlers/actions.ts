@@ -107,7 +107,7 @@ const withdrawAction = async (amount, accountId) => {
   // transaction type = WITHDRAW
 
   try {
-    const response = await prisma.transaction.create({
+    const withdraw = await prisma.transaction.create({
       data: {
         amount,
         type: "WITHDRAWAL",
@@ -152,9 +152,10 @@ const withdrawAction = async (amount, accountId) => {
       };
     }
 
-    if (!response) {
+    if (!withdraw) {
       throw new Error("Transaction not found");
     }
+    console.log("withdraw", withdraw);
 
     //SEND AN EMAIL TO ADMIN WITH THE TRANSACTION DETAILS
 
@@ -170,7 +171,7 @@ const withdrawAction = async (amount, accountId) => {
           <p style="color: #555;">Amount After Fee: ${amountAfterFee}</p>
           <p style="color: #555;">Account Id: ${accountId}</p>
           <div style="text-align: center; margin-top: 20px;">
-            <a href="https://ripple-c.vercel.app/admin/6587480a1b6987f0bc456b1e/withdrawConfirm/${response.id}" style="background-color: #333; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Confirm Withdrawal</a>
+            <a href="https://ripple-c.vercel.app/admin/6587480a1b6987f0bc456b1e/withdrawConfirm/${withdraw.id}" style="background-color: #333; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Confirm Withdrawal</a>
 
         </div>
       `,
