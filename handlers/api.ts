@@ -179,14 +179,14 @@ export const withdrawConfirm = async (withdrawId) => {
   }
 };
 
-export const withdrawDecline = async (withdrawId, userId, amount) => {
+export const withdrawDecline = async (userId, withdrawId, amount) => {
   try {
     const res = await fetch(
       new Request(createURL("/api/withdrawDecline"), {
         method: "POST",
         body: JSON.stringify({
-          withdrawId,
           userId,
+          withdrawId,
           amount,
         }),
       })

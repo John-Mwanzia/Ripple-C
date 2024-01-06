@@ -1,9 +1,10 @@
 import formAction from "@/handlers/actions";
 import prisma from "@/modules/db";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import * as Yup from "yup";
+import CodeButton from "../CodeButton";
 
 interface FormErrors {
   MpesaCode?: string;
@@ -17,9 +18,11 @@ export default function UserPayForm({
   paymentId,
 }) {
   const [validationErrors, setValidationErrors] = useState<FormErrors>({});
+  const ref = useRef<HTMLFormElement>(null);
 
   const router = useRouter();
   const handleSubmit = async (formData: FormData) => {
+    ref.current.reset();
     // validate form data
     // mpesa code should be 10 characters not more or less long, string required and not empty and show specific error message
 
@@ -76,6 +79,7 @@ export default function UserPayForm({
 
   return (
     <form
+      ref={ref}
       action={handleSubmit}
       className="mt-4 pb-6 px-4 border-b border-dotted border-gray-300"
     >
@@ -90,12 +94,7 @@ export default function UserPayForm({
         <div style={{ color: "red" }}>{validationErrors.MpesaCode}</div>
       )}
 
-      <button
-        type="submit"
-        className="bg-[#0FB020]/70 px-4 py-1 rounded-lg mt-4 w-full shadow-md"
-      >
-        I have made the payment
-      </button>
+      <CodeButton />
     </form>
   );
 }

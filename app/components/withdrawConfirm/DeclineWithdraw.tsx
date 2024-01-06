@@ -1,11 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { withdrawDecline } from "@/handlers/api";
+import Loader from "../Loader";
 
 export default function DeclineWithdraw({ userId, withdrawId, amount }) {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const handleDecline = async () => {
     // Alert user if they are sure they want to decline payment or not
@@ -15,8 +17,9 @@ export default function DeclineWithdraw({ userId, withdrawId, amount }) {
     if (!confirm) return;
 
     // Send request to decline payment
+    setLoading(true);
     const res = await withdrawDecline(userId, withdrawId, amount);
-    console.log(res);
+    setLoading(false);
 
     // If there is an error, alert the user
     if (res.status === "error") {
@@ -29,10 +32,11 @@ export default function DeclineWithdraw({ userId, withdrawId, amount }) {
   };
   return (
     <button
+      disabled={loading}
       className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4"
       onClick={handleDecline}
     >
-      Decline
+      {loading ? <Loader width={20} height={20} /> : "Decline"}
     </button>
   );
 }

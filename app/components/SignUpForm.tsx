@@ -38,16 +38,16 @@ export default function SignUpForm() {
 
   const validationSchema = Yup.object().shape({
     phoneNumber: Yup.string()
-    .required("Phone number is required")
-    .matches(/^(07|01)\d{8}$/, {
-      message: "Phone number must start with 07 or 01",
-      excludeEmptyString: true, // Exclude error if field is empty
-    })
-    .matches(/^\d{10}$/, {
-      message: "Phone number must be 10 digits",
-      excludeEmptyString: true, // Exclude error if field is empty
-    })
-    .label("Phone Number"),
+      .required("Phone number is required")
+      .matches(/^(07|01)\d{8}$/, {
+        message: "Phone number must start with 07 or 01",
+        excludeEmptyString: true, // Exclude error if field is empty
+      })
+      .matches(/^\d{10}$/, {
+        message: "Phone number must be 10 digits",
+        excludeEmptyString: true, // Exclude error if field is empty
+      })
+      .label("Phone Number"),
     firstName: Yup.string().required("First name is required"),
     password: Yup.string()
       .required("Password is required")
@@ -70,7 +70,6 @@ export default function SignUpForm() {
     const urlParams = new URLSearchParams(window.location.search);
     const providedReferralCode = urlParams.get("referralCode");
     setReferrerCode(providedReferralCode);
-    console.log(referrerCode);
   }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -102,15 +101,12 @@ export default function SignUpForm() {
         { abortEarly: false }
       );
 
-      // If validation succeeds, proceed with your form submission logic 
+      // If validation succeeds, proceed with your form submission logic
       // also remove any existing validation errors
       setValidationErrors({});
       //  make the API request
 
-
-
       try {
-
         setIsLoading(true);
         const urlParams = new URLSearchParams(window.location.search);
         const providedReferralCode = urlParams.get("referralCode");
