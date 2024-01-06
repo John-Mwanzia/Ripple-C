@@ -26,15 +26,14 @@ export default function UserPayForm({
     const schema = Yup.object().shape({
       MpesaCode: Yup.string()
         .required("Mpesa code is required")
-        .matches(/^\d{10}$/, {
-          message: "Mpesa code must be 10 digits",
+        .matches(/^.{10}$/, {
+          message: "Mpesa code must be 10 characters",
           excludeEmptyString: true, // Exclude error if field is empty
         }),
     });
 
     try {
       const MpesaCode = formData.get("MpesaCode");
-      console.log(MpesaCode);
 
       await schema.validate(
         {
@@ -68,7 +67,7 @@ export default function UserPayForm({
         formattedErrors[error.path] = error.message;
       });
       setValidationErrors(formattedErrors);
-      toast.error(validationErrors.message);
+
       if (validationErrors && validationErrors.MpesaCode) {
         toast.error(validationErrors.MpesaCode);
       }

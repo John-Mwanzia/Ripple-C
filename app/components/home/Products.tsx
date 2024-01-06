@@ -5,12 +5,14 @@ import { createInvestment, getUserData } from "@/handlers/api";
 import React, { useContext, useEffect, useState } from "react";
 import Modal from "./Modal";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 import Loader from "../Loader";
 
 export default function Products({ products }) {
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
   const [loadingIndices, setLoadingIndices] = useState<number[]>([]);
+  const router = useRouter();
 
   const { state } = useContext(Store);
   const { token } = state;
@@ -41,48 +43,52 @@ export default function Products({ products }) {
   };
 
   const handleRecharge = () => {
-    // Redirect to recharge page
-    console.log("Recharge");
+    // Redirect to recharge page /wallet/recharge/${userData.id}
 
-    // router.push("/recharge");
+    router.push(`/wallet/recharge/${userData.id}`);
   };
 
   const handleBuyNow = async (product, index) => {
     try {
       setLoadingIndices((prev) => [...prev, index]);
 
-      // Check if user has enough balance to buy the product
-      if (userData && userData.Account[0].balance >= product.productPrice) {
-        // send a request to create an investment(product bought) for the user in the database and update the user's account balance
-
-        // Show loader
-
-        const response = await createInvestment({
-          productId: product.id,
-          phoneNumber: userData.phoneNumber,
-          productName: product.productName,
-          productPrice: product.productPrice,
-          revenueCycle: product.cycle,
-          dailyIncome: product.dailyIncome,
-          totalIncome: product.totalIncome,
-        });
-
-        // Hide loader
+      if (!userData) {
         setLoadingIndices((prev) => prev.filter((i) => i !== index));
+        // Handle missing user data
+        console.error("User data not available");
+        return;
+      }
 
-        // Show success message
+      const userBalance = userData.Account[0].balance;
+      const productPrice = product.productPrice;
 
-        if (response.data) {
-          toast.success("Product bought successfully");
-        }
-      } else {
-        // Show error message
+      if (userBalance < productPrice) {
+        setLoadingIndices((prev) => prev.filter((i) => i !== index));
         setError("Insufficient balance");
+        return;
+      }
+
+      const response = await createInvestment({
+        productId: product.id,
+        phoneNumber: userData.phoneNumber,
+        productName: product.productName,
+        productPrice: product.productPrice,
+        revenueCycle: product.cycle,
+        dailyIncome: product.dailyIncome,
+        totalIncome: product.totalIncome,
+      });
+
+      setLoadingIndices((prev) => prev.filter((i) => i !== index));
+
+      if (response.data) {
+        // Consider updating user data with the new balance from the response
+        // Example: setUserData(response.updatedUserData);
+        toast.success("Product bought successfully");
       }
     } catch (error) {
-      // Handle errors if needed
       setLoadingIndices((prev) => prev.filter((i) => i !== index));
       console.error(error);
+      // Handle errors if needed
     }
   };
 

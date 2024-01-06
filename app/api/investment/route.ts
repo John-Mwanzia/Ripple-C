@@ -27,6 +27,16 @@ export const POST = async (req: Request) => {
     return NextResponse.redirect("/sign-in");
   }
 
+  // check if the user has enough balance to make the investment
+  if (user.Account[0].balance < productPrice) {
+    return NextResponse.json(
+      {
+        error: "Insufficient balance",
+      },
+      { status: 400 }
+    );
+  }
+
   const investment = await prisma.investment.create({
     data: {
       user: {
