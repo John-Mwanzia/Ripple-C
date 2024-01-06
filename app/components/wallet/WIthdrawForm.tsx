@@ -1,54 +1,66 @@
 "use client";
 
+import { withdrawAction } from "@/handlers/actions";
 import prisma from "@/modules/db";
-import React from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import * as Yup from "yup";
+
+interface FormErrors {
+  amount?: string;
+  [key: string]: string | undefined;
+}
 
 export default function WIthdrawForm({ balance, accountId }) {
-  const handleWithdraw = async (formData: FormData) => {
-    "use server ";
+  const [validationErrors, setValidationErrors] = useState<FormErrors>({});
 
+  const router = useRouter();
+
+  const handleWithdraw = async (formData: FormData) => {
     const amount = Number(formData.get("amount"));
     if (amount < 100) {
       // Handle error
       toast.error("Minimum withdrawal amount is Ksh: 100");
+      return;
     }
     if (amount > balance) {
       // Handle error
       toast.error("Insufficient funds");
+      return;
     }
 
-    // Make request to backend
-    // transaction type = WITHDRAW
-
-    const data = {
-      amount,
-      type: "WITHDRAW",
-    };
-
+    const schema = Yup.object().shape({
+      amount: Yup.number().required("Amount is required"),
+    });
     try {
-      const response = await prisma.transaction.create({
-        data: {
+      await schema.validate(
+        {
           amount,
-          type: "WITHDRAWAL",
-          status: "PENDING",
-          account: {
-            connect: {
-              id: accountId,
-            },
-          },
         },
-      });
+        { abortEarly: false }
+      );
+      setValidationErrors({});
+      // if validation is successful, send a withdrawal request to the server
+      try {
+        const response = await withdrawAction(amount, accountId);
+        if (response.status === "success") {
+          toast.success("Withdrawal request sent");
+        } else {
+          toast.error("Something went wrong");
+        }
+      } catch (error) {
+        console.log(error);
 
-      if (response) {
-        toast.success("Withdrawal request sent");
-      } else {
-        toast.error("Error sending withdrawal request");
+        toast.error("Something went wrong");
       }
     } catch (error) {
-      // Handle error
-      console.error(error);
-      toast.error("Error sending withdrawal request");
+      const errors: FormErrors = {};
+      error.inner.forEach((error) => {
+        errors[error.path] = error.message;
+      });
+      setValidationErrors(errors);
+      return;
     }
   };
 
@@ -63,6 +75,9 @@ export default function WIthdrawForm({ balance, accountId }) {
           inputMode="numeric"
         />
       </div>
+      {validationErrors && validationErrors.amount && (
+        <div style={{ color: "red" }}>{validationErrors.amount}</div>
+      )}
       <button
         type="submit"
         className="bg-[#F6D6D6] px-6 py-1 rounded-lg mt-4 w-full shadow-md"

@@ -98,4 +98,96 @@ const formAction = async (
   }
 };
 
+const withdrawAction = async (amount, accountId) => {
+  // charge 10% fee
+  const fee = amount * 0.1;
+  const amountAfterFee = amount - fee; // send an email to admin with the transaction details
+
+  // Make request to backend
+  // transaction type = WITHDRAW
+
+  try {
+    const response = await prisma.transaction.create({
+      data: {
+        amount,
+        type: "WITHDRAWAL",
+        status: "PENDING",
+        account: {
+          connect: {
+            id: accountId,
+          },
+        },
+      },
+    });
+
+    // deduct amount from account balance
+
+    try {
+      const account = await prisma.account.findUnique({
+        where: {
+          id: accountId,
+        },
+      });
+
+      if (!account) {
+        throw new Error("Account not found");
+      }
+
+      const newBalance = account.balance - amount;
+
+      await prisma.account.update({
+        where: {
+          id: accountId,
+        },
+        data: {
+          balance: newBalance,
+        },
+      });
+    } catch (error) {
+      // Handle error
+      console.error(error);
+      return {
+        status: "error",
+        message: error.message,
+      };
+    }
+
+    if (!response) {
+      throw new Error("Transaction not found");
+    }
+
+    //SEND AN EMAIL TO ADMIN WITH THE TRANSACTION DETAILS
+
+    await sendMail({
+      to: "jmwanzia@kabarak.ac.ke",
+      name: "Ripple Cash",
+      subject: "New Withdrawal Request",
+      body: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h1 style="text-align: center; color: #333;">New Withdrawal Request</h1>
+          <p style="color: #555;">Amount: ${amount}</p>
+          <p style="color: #555;">Fee: ${fee}</p>
+          <p style="color: #555;">Amount After Fee: ${amountAfterFee}</p>
+          <p style="color: #555;">Account Id: ${accountId}</p>
+          <div style="text-align: center; margin-top: 20px;">
+            <a href="https://ripple-c.vercel.app/admin/6587480a1b6987f0bc456b1e/withdrawConfirm/${response.id}" style="background-color: #333; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Confirm Withdrawal</a>
+
+        </div>
+      `,
+    });
+
+    return {
+      status: "success",
+    };
+  } catch (error) {
+    // Handle error
+    console.error(error);
+    return {
+      status: "error",
+      message: error.message,
+    };
+  }
+};
+
 export default formAction;
+export { withdrawAction };
