@@ -1,11 +1,11 @@
 "use client";
 
 import { withdrawAction } from "@/handlers/actions";
-import prisma from "@/modules/db";
-import React, { useState } from "react";
+import React, { use, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import * as Yup from "yup";
+import Button from "../Button";
 
 interface FormErrors {
   amount?: string;
@@ -14,10 +14,12 @@ interface FormErrors {
 
 export default function WIthdrawForm({ balance, accountId }) {
   const [validationErrors, setValidationErrors] = useState<FormErrors>({});
+  const ref = useRef<HTMLFormElement>(null);
 
   const router = useRouter();
 
   const handleWithdraw = async (formData: FormData) => {
+    ref.current.reset();
     const amount = Number(formData.get("amount"));
     if (amount < 100) {
       // Handle error
@@ -65,7 +67,7 @@ export default function WIthdrawForm({ balance, accountId }) {
   };
 
   return (
-    <form action={handleWithdraw}>
+    <form ref={ref} action={handleWithdraw}>
       <div className="flex flex-col gap-2 px-4 mt-4">
         <label htmlFor=""> Withdraw Amount</label>
         <input
@@ -78,12 +80,7 @@ export default function WIthdrawForm({ balance, accountId }) {
       {validationErrors && validationErrors.amount && (
         <div style={{ color: "red" }}>{validationErrors.amount}</div>
       )}
-      <button
-        type="submit"
-        className="bg-[#F6D6D6] px-6 py-1 rounded-lg mt-4 w-full shadow-md"
-      >
-        withdraw
-      </button>
+      <Button />
     </form>
   );
 }

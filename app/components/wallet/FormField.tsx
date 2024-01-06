@@ -1,9 +1,10 @@
 "use client";
 
 import { transactionInit } from "@/handlers/api";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import Loader from "../Loader";
 
 const inputAmount = [
   800,
@@ -24,11 +25,17 @@ const inputAmount = [
 
 export default function FormField({ userId, phoneNumber }) {
   const [amount, setAmount] = useState(0);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // if amount is less than 800, show error and return
+    if (amount < 800) {
+      toast.error("Minimum recharge amount is Ksh: 800");
+      return;
+    }
     // Make request to backend
     // transaction type = recharge
 
@@ -39,13 +46,9 @@ export default function FormField({ userId, phoneNumber }) {
     };
 
     try {
+      setLoading(true);
       const response = await transactionInit(data);
-
-      // if amount is less than 800, show error and return
-      if (amount < 800) {
-        toast.error("Minimum recharge amount is Ksh: 800");
-        return;
-      }
+      setLoading(false);
 
       // If response is successful, redirect to /userPay/${userId} with transactionId and amount
 
@@ -67,7 +70,7 @@ export default function FormField({ userId, phoneNumber }) {
     // Redirect to success page
   };
   return (
-    <form action="" className="mt-6" onSubmit={handleSubmit}>
+    <form className="mt-6" onSubmit={handleSubmit}>
       <div className="flex flex-col gap-2">
         <label htmlFor="">Amount</label>
         <input
@@ -93,9 +96,16 @@ export default function FormField({ userId, phoneNumber }) {
       </div>
       <button
         type="submit"
+        disabled={loading}
         className="bg-[#F6D6D6] px-4 py-1 rounded-lg mt-4 w-full shadow-md"
       >
-        Recharge
+        {loading ? (
+          <div className="flex justify-center items-center">
+            <Loader width={20} height={20} />
+          </div>
+        ) : (
+          <span>Recharge</span>
+        )}
       </button>
     </form>
   );
