@@ -3,15 +3,16 @@ import DeclineButton from "@/app/components/paymentConfirm/DeclineButton";
 import prisma from "@/modules/db";
 import React from "react";
 
-export default async function page({ params, searchParams }) {
-  const id = searchParams.paymentId;
-
+export default async function page({ params }) {
   const { paymentId } = params;
-  const userId = paymentId;
+  const decodedCombinedIds = decodeURIComponent(paymentId);
+  // Split the IDs
+  const [userId, paymentID] = decodedCombinedIds.split("-");
+  console.log(userId, paymentID);
 
   const user = await prisma.user.findUnique({
     where: {
-      id: paymentId,
+      id: userId,
     },
     include: {
       Account: {
@@ -28,7 +29,7 @@ export default async function page({ params, searchParams }) {
 
   const transaction = await prisma.transaction.findUnique({
     where: {
-      id,
+      id: paymentID,
     },
   });
 
@@ -63,9 +64,9 @@ export default async function page({ params, searchParams }) {
             <ConfirmButton
               userId={userId}
               amount={transaction.amount}
-              id={id}
+              id={paymentID}
             />
-            <DeclineButton userId={paymentId} id={id} />
+            <DeclineButton userId={userId} id={paymentID} />
           </div>
         </div>
       </div>
