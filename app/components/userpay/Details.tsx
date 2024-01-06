@@ -60,10 +60,10 @@ export default function Details({ firstName, phoneNumber }) {
         <div className="flex justify-between px-4 mt-6">
           <p>Pay to</p>
           <div className="flex gap-4">
-            <p className="font-medium">Caleb Muthama</p>
+            <p className="font-medium">Muthama Mutiso</p>
             <button
               onClick={() =>
-                copyToClipboard("Caleb Muthama", setCopySendToSuccess)
+                copyToClipboard(" Muthama Mutiso", setCopySendToSuccess)
               }
               className="relative"
             >
@@ -80,9 +80,9 @@ export default function Details({ firstName, phoneNumber }) {
         <div className="flex justify-between px-4 mt-6">
           <p>Phone Number</p>
           <div className="flex gap-4">
-            <p className="font-medium">0796642248</p>
+            <p className="font-medium">0768093037</p>
             <button
-              onClick={() => copyToClipboard("0796642248", setCopyPhoneSuccess)}
+              onClick={() => copyToClipboard("0768093037", setCopyPhoneSuccess)}
               className="relative"
             >
               <Image
@@ -97,7 +97,7 @@ export default function Details({ firstName, phoneNumber }) {
       </div>
       <div className="flex justify-center mt-8">
         <div className="w-44 h-44 bg-zinc-100 ">
-          <p className="text-center px-4">i'll add mpesa qr code here</p>
+          <Image src="/qrcode.jpg" alt="qrcode" width={176} height={176} />
         </div>
       </div>
 

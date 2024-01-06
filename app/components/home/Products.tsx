@@ -128,7 +128,9 @@ export default function Products({ products }) {
                 <div>
                   <p className="text-gray-500 text-sm">Total Income</p>
                   <p className="text-gray-800 font-semibold">
-                    Ksh {product.totalIncome}
+                    Ksh{" "}
+                    {//  multiply the daily income by the revenue cycle
+                    product.dailyIncome * product.cycle}
                   </p>
                 </div>
               </div>
