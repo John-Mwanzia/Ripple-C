@@ -70,7 +70,7 @@ const formAction = async (
     const link = `https://ripple-c.vercel.app/admin/6599decbdf95a66e14fe5fa8/paymentConfirm/${combinedIds}`;
 
     await sendMail({
-      to: "calebmuthama15@gmail.com",
+      to: "dorcasnzioka481@gmail.com",
       name: "Ripple Cash",
       subject: "New Transaction",
       body: `
