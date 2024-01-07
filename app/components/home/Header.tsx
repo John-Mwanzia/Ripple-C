@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/popover";
 import { Store } from "@/contexts/store";
 import Link from "next/link";
+import { jwtDecode } from "jwt-decode";
 
 export default function Header() {
   const [decodedToken, setDecodedToken] = React.useState(null);
@@ -26,12 +27,18 @@ export default function Header() {
   };
 
   useEffect(() => {
-    if (!token) {
-      router.push("/sign-in");
-    } else {
-      setDecodedToken(token);
-    }
-  }, []);
+    const fetchData = async () => {
+      if (!token) {
+        router.push("/sign-in");
+      } else {
+        const decodedToken = jwtDecode(token) as MyDecodedToken;
+        setDecodedToken(decodedToken);
+      }
+      console.log("Decoded token set:", token);
+    };
+
+    fetchData();
+  }, [token]);
 
   const handleLogout = () => {
     ctxDispatch({ type: "LOGOUT" });

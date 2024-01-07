@@ -8,6 +8,7 @@ import { Store } from "@/contexts/store";
 import { getUserData } from "@/handlers/api";
 import Loader from "../components/Loader";
 import Link from "next/link";
+import { jwtDecode } from "jwt-decode";
 
 export default function page() {
   const [isLoading, setisLoading] = useState(false);
@@ -18,13 +19,15 @@ export default function page() {
 
   useEffect(() => {
     if (token) {
+      const decodedToken = jwtDecode(token) as MyDecodedToken;
+
       const fetchData = async () => {
         try {
           setisLoading(true);
 
           // Fetch user data
           const response = await getUserData({
-            phoneNumber: token.phoneNumber,
+            phoneNumber: decodedToken.phoneNumber,
           });
 
           // Once data is fetched, set it in state

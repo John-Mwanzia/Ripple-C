@@ -17,7 +17,7 @@ interface Action {
 const initialState: State = {
   token:
     typeof window !== "undefined" && localStorage.getItem("token")
-      ? (jwtDecode(localStorage.getItem("token")) as MyDecodedToken) // Decode here
+      ? JSON.parse(localStorage.getItem("token"))
       : null,
 };
 

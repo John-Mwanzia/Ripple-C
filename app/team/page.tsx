@@ -8,6 +8,7 @@ import InviteRules from "../components/InviteRules";
 import InviteCard from "../components/InviteCard";
 import Link from "next/link";
 import { Store } from "@/contexts/store";
+import { jwtDecode } from "jwt-decode";
 
 export default function page() {
   const [decodedToken, setDecodedToken] = useState(null);
@@ -17,7 +18,7 @@ export default function page() {
 
   useEffect(() => {
     if (token) {
-      const decodedToken = token;
+      const decodedToken = jwtDecode(token) as MyDecodedToken;
       setDecodedToken(decodedToken);
     }
   }, [token]);
