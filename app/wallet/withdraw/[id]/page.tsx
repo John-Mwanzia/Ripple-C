@@ -11,8 +11,10 @@ export default async function page({ params }) {
     },
     include: {
       Account: true,
+      investments: true,
     },
   });
+  console.log(response.investments);
 
   return (
     <div>
@@ -28,6 +30,7 @@ export default async function page({ params }) {
       <WIthdrawForm
         balance={response.Account[0].balance}
         accountId={response.Account[0].id}
+        investments={response.investments}
       />
       <div className="mt-8 px-4">
         <h2>Withdrawal rules:</h2>
