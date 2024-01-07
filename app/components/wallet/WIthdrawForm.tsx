@@ -6,13 +6,14 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import * as Yup from "yup";
 import Button from "../Button";
+import { error } from "console";
 
 interface FormErrors {
   amount?: string;
   [key: string]: string | undefined;
 }
 
-export default function WIthdrawForm({ balance, accountId }) {
+export default function WIthdrawForm({ balance, accountId, investments }) {
   const [validationErrors, setValidationErrors] = useState<FormErrors>({});
   const ref = useRef<HTMLFormElement>(null);
 
@@ -45,16 +46,14 @@ export default function WIthdrawForm({ balance, accountId }) {
       setValidationErrors({});
       // if validation is successful, send a withdrawal request to the server
       try {
-        const response = await withdrawAction(amount, accountId);
+        const response = await withdrawAction(amount, accountId, investments);
         if (response.status === "success") {
           toast.success("Withdrawal request sent");
         } else {
-          toast.error("Something went wrong");
+          toast.error(response.message);
         }
       } catch (error) {
-        console.log(error);
-
-        toast.error("Something went wrong");
+        toast.error(error.message);
       }
     } catch (error) {
       const errors: FormErrors = {};

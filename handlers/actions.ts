@@ -98,10 +98,18 @@ const formAction = async (
   }
 };
 
-const withdrawAction = async (amount, accountId) => {
+const withdrawAction = async (amount, accountId, investments) => {
   // charge 10% fee
   const fee = amount * 0.1;
   const amountAfterFee = amount - fee; // send an email to admin with the transaction details
+
+  // Check if the user has investments
+  if (!investments || investments.length === 0) {
+    return {
+      status: "error",
+      message: "You need to have an active investment plan to withdraw.",
+    };
+  }
 
   // Make request to backend
   // transaction type = WITHDRAW
