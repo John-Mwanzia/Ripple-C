@@ -44,7 +44,7 @@ export default async function page({ params }) {
             <div className="flex gap-3 justify-center items-center">
               <h3 className="font-semibold text-xl">{referee.firstName}</h3>
               <div className="flex flex-col">
-                <p>{referee.phoneNumber}</p>
+                {/* <p>{referee.phoneNumber}</p> */}
                 <p>Referral Code: {referee.referralCode}</p>
                 {/* Calculate and display potential earnings here */}
               </div>
@@ -69,7 +69,7 @@ export default async function page({ params }) {
                 {secondaryReferee.firstName}
               </h3>
               <div className="flex flex-col">
-                <p>{secondaryReferee.phoneNumber}</p>
+                {/* <p>{secondaryReferee.phoneNumber}</p> */}
                 <p>Referral Code: {secondaryReferee.referralCode}</p>
                 {/* Calculate and display potential earnings here */}
               </div>
