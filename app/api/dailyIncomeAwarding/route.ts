@@ -9,9 +9,8 @@ import { NextResponse } from "next/server";
 //   )}")  and  since i have multiple users i have to to fetch all of them and their specific total daily income as everyone have diferrent daily incomes  and update each user account with specific daily income . this updation occurs after every 24hrs. i have to create an endpoint  that when fired it achieves that please please help
 
 // Path: app/api/dailyIncomeAwarding/route.ts
-import { NextApiRequest, NextApiResponse } from "next";
 
-export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
+export const GET = async (req: Request) => {
   try {
     const users = await prisma.user.findMany({
       include: {
