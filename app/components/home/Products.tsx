@@ -7,6 +7,7 @@ import Modal from "./Modal";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Loader from "../Loader";
+import { jwtDecode } from "jwt-decode";
 
 export default function Products({ products }) {
   const [userData, setUserData] = useState(null);
@@ -18,11 +19,12 @@ export default function Products({ products }) {
   const { token } = state;
   useEffect(() => {
     if (token) {
+      const decodedToken = jwtDecode(token) as MyDecodedToken;
       const fetchData = async () => {
         try {
           // Fetch user data
           const response = await getUserData({
-            phoneNumber: token.phoneNumber,
+            phoneNumber: decodedToken.phoneNumber,
           });
 
           // Once data is fetched, set it in state
