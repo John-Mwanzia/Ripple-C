@@ -60,10 +60,10 @@ export default function Details({ firstName, phoneNumber }) {
         <div className="flex justify-between px-4 mt-6">
           <p>Pay to</p>
           <div className="flex gap-4">
-            <p className="font-medium">Muthama Mutiso</p>
+            <p className="font-medium">Mwikali Moses</p>
             <button
               onClick={() =>
-                copyToClipboard(" Muthama Mutiso", setCopySendToSuccess)
+                copyToClipboard(" Mwikali Moses", setCopySendToSuccess)
               }
               className="relative"
             >
@@ -80,9 +80,9 @@ export default function Details({ firstName, phoneNumber }) {
         <div className="flex justify-between px-4 mt-6">
           <p>Phone Number</p>
           <div className="flex gap-4">
-            {/* <p className="font-medium">0768093037</p>
+            <p className="font-medium">0793649483</p>
             <button
-              onClick={() => copyToClipboard("0768093037", setCopyPhoneSuccess)}
+              onClick={() => copyToClipboard("0793649483", setCopyPhoneSuccess)}
               className="relative"
             >
               <Image
@@ -91,27 +91,15 @@ export default function Details({ firstName, phoneNumber }) {
                 width={20}
                 height={20}
               />
-            </button> */}
-            {/* <p className="font-medium">0768093037</p>
-            <button
-              onClick={() => copyToClipboard("0768093037", setCopyPhoneSuccess)}
-              className="relative"
-            >
-              <Image
-                src="https://cdn-icons-png.flaticon.com/128/1622/1622069.png"
-                alt="copy"
-                width={20}
-                height={20}
-              />
-            </button> */}
+            </button>
             {/* show a button with technical error text(warning red) */}
 
-            <button
+            {/* <button
               onClick={() => toast.error("Technical error, working on it")}
               className="bg-red-100 px-4 py-1 rounded-lg shadow-md"
             >
               <p className="font-medium text-red-600">Technical error</p>
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
