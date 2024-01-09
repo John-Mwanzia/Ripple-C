@@ -120,7 +120,7 @@ export default function page() {
             </div>
             <div className="px-4 border-b-2 border-gray-200 pb-2 mt-4">
               <Link
-                href="/withdraw-history"
+                href={`/withdraw-history/${userData && userData.id}`}
                 className="text-black flex justify-between  font-bold"
               >
                 <h2>Withdraw Records</h2>
