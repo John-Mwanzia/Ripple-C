@@ -60,10 +60,10 @@ export default function Details({ firstName, phoneNumber }) {
         <div className="flex justify-between px-4 mt-6">
           <p>Pay to</p>
           <div className="flex gap-4">
-            <p className="font-medium">Mwikali Moses</p>
+            <p className="font-medium">Moses Mutulia</p>
             <button
               onClick={() =>
-                copyToClipboard(" Mwikali Moses", setCopySendToSuccess)
+                copyToClipboard(" Moses Mutulia", setCopySendToSuccess)
               }
               className="relative"
             >
@@ -78,11 +78,11 @@ export default function Details({ firstName, phoneNumber }) {
         </div>
 
         <div className="flex justify-between px-4 mt-6">
-          <p>Phone Number</p>
+          <p>Till Number</p>
           <div className="flex gap-4">
-            <p className="font-medium">0793649483</p>
+            <p className="font-medium">4103574</p>
             <button
-              onClick={() => copyToClipboard("0793649483", setCopyPhoneSuccess)}
+              onClick={() => copyToClipboard("4103574", setCopyPhoneSuccess)}
               className="relative"
             >
               <Image
