@@ -19,7 +19,6 @@ export default async function page({ params }) {
     },
   });
 
-  console.log(user.Account[0].Transaction);
 
   return (
     <div>
