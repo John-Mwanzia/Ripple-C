@@ -63,7 +63,7 @@ export default function Header() {
               <div className="flex items-center justify-center">
                 <Avatar>
                   <AvatarImage
-                    src="https://github.com/shadcn.png"
+                    src="https://cdn-icons-png.flaticon.com/128/3177/3177440.png"
                     alt="avatar"
                     width={40}
                     height={40}
@@ -79,7 +79,7 @@ export default function Header() {
                     <div>
                       <Avatar>
                         <AvatarImage
-                          src="https://github.com/shadcn.png"
+                          src="https://cdn-icons-png.flaticon.com/128/3177/3177440.png"
                           alt="avatar"
                           width={40}
                           height={40}
