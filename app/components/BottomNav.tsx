@@ -4,7 +4,7 @@ import React from "react";
 
 export default function BottomNav() {
   return (
-    <div className="w-screen fixed bottom-0 bg-[#F0C113]/80 py-4">
+    <div className="w-screen fixed bottom-0 bg-blue-600/80 py-4">
       <div className="flex justify-around">
         <div>
           <Link href="/">
