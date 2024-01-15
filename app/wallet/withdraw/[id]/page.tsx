@@ -14,7 +14,6 @@ export default async function page({ params }) {
       investments: true,
     },
   });
-  console.log(response.investments);
 
   return (
     <div>
@@ -34,7 +33,7 @@ export default async function page({ params }) {
       />
       <div className="mt-8 px-4">
         <h2>Withdrawal rules:</h2>
-        <p className="">1. Minimum withdrawal amount is Ksh: 100</p>
+        <p className="">1. Minimum withdrawal amount is Ksh: 200</p>
         <p>2. Withdrawals will arrive in your Mpesa account within 24 hours</p>
         <p>3. Withdrawals are charged a 10% fee</p>
       </div>
