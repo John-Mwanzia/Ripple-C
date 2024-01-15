@@ -10,6 +10,7 @@ const nextConfig = {
       "encrypted-tbn0.gstatic.com",
       "hips.hearstapps.com",
       "officemart.co.ke",
+      "cdn5.vectorstock.com",
     ],
   },
 };
