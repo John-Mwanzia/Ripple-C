@@ -74,9 +74,10 @@ model Investment {
 
 model Product {
   id           String       @id @default(auto()) @map("_id") @db.ObjectId
-  productName  String
+  category     String
   productImage String
   productPrice Float
+  level        Int
   cycle        Int
   dailyIncome  Float
   totalIncome  Float

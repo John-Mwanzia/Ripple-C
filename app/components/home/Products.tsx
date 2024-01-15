@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Loader from "../Loader";
 import { jwtDecode } from "jwt-decode";
+import Image from "next/image";
 
 export default function Products({ products }) {
   const [userData, setUserData] = useState(null);
@@ -105,9 +106,33 @@ export default function Products({ products }) {
             >
               <div className="flex justify-between">
                 <div>
-                  <p className="text-gray-800 font-semibold">
-                    {product.productName}
-                  </p>
+                  <div className="flex gap-6 justify-center items-center">
+                    <div className="flex gap-2 justify-center items-center">
+                      {/* show different images depending whether the category is Vip or Regula */}
+                      {product.category === "Vip" ? (
+                        <Image
+                          src="https://cdn-icons-png.flaticon.com/128/6941/6941697.png"
+                          alt="vip"
+                          width={30}
+                          height={30}
+                        />
+                      ) : (
+                        <Image
+                          src="https://cdn-icons-png.flaticon.com/128/7166/7166814.png"
+                          alt="regular"
+                          width={30}
+                          height={30}
+                        />
+                      )}
+                      <p className="text-gray-800 font-semibold">
+                        {product.category}
+                      </p>
+                    </div>
+                    <p className="text-gray-500 text-sm">
+                      {" "}
+                      <span>level:</span> {product.level}
+                    </p>
+                  </div>
                   <p className="text-gray-500 text-sm">
                     Price: {product.productPrice}
                   </p>
