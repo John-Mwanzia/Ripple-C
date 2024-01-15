@@ -1,4 +1,3 @@
-import UserData from "@/app/components/admin/UserData";
 import { DataTable } from "@/app/components/admin/data-table";
 import prisma from "@/modules/db";
 import Image from "next/image";
@@ -34,7 +33,6 @@ export default async function page({ params }) {
 
   return (
     <div className=" min-h-screen">
-      {/* <UserData data={response} /> */}
       <div className=" mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold ">Welcome Admin {admin.firstName}</h1>
 

@@ -26,7 +26,7 @@ export default async function page({ params }) {
             <div key={investment.id} className="border-b border-gray-200 py-4">
               <div className="flex items-center justify-between">
                 <span className="font-semibold">Product Name:</span>
-                <span>{investment.product.productName}</span>
+                <span>{investment.product.category}</span>
               </div>
               {/* product image */}
               <div className="flex items-center justify-between">
