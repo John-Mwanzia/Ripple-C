@@ -1,15 +1,11 @@
 "use client";
 
-
 import Image from "next/image";
 import React, { useContext, useEffect, useState } from "react";
 
-export default function InviteCard({decodedToken}) {
-  
+export default function InviteCard({ decodedToken }) {
   const [copyCodeSuccess, setCopyCodeSuccess] = useState(false);
   const [copyLinkSuccess, setCopyLinkSuccess] = useState(false);
-
- 
 
   const copyToClipboard = (text, setCopySuccess) => {
     navigator.clipboard.writeText(text).then(
@@ -27,8 +23,8 @@ export default function InviteCard({decodedToken}) {
 
   return (
     <div className="px-6 mt-8">
-      <div className="bg-[#b4e4ff63] relative transform -skew-x-12 scale-y-100 text-center px-4 sm:px-12 py-8 sm:py-20 rounded-3xl shadow-xl">
-        <h3 className="flex gap-3 pl-4 justify-start items-center skew-x-12 pb-4">
+      <div className="bg-[#d896ff]  relative  text-center px-4 sm:px-12 py-8 sm:py-20 rounded-3xl shadow-xl">
+        <h3 className="flex gap-3 pl-4 justify-start items-center  pb-4">
           <span className="font-medium">Your code :</span>
           <span className="text-sm">
             {decodedToken && decodedToken.referralCode}
@@ -60,14 +56,14 @@ export default function InviteCard({decodedToken}) {
             </button>
           </div>
         </h3>
-        <div className="flex gap-3 justify-start pl-4  items-center skew-x-12">
+        <div className="flex gap-1 justify-start pl-4  items-center ">
           <span className="font-medium">Link :</span>
-          <span className="text-sm">https://ripple-c.vercel.app...</span>
+          <span className="text-sm">https://tradvow-company....</span>
           <div className="flex-1 flex justify-end">
             <button
               onClick={() =>
                 copyToClipboard(
-                  "https://ripple-c.vercel.app/sign-up?referralCode=" +
+                  "https://tradvow-company.vercel.app/sign-up?referralCode=" +
                     decodedToken.referralCode,
 
                   setCopyLinkSuccess

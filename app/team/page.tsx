@@ -32,7 +32,7 @@ export default function page() {
         <Link
           href={`/team/team-members/${decodedToken &&
             decodedToken.referralCode}`}
-          className=" flex-1 text-center  py-2 lg:py-3  bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600 rounded-3xl text-xl "
+          className=" flex-1 text-center  py-2 lg:py-3  bg-[#FB9678] rounded-xl shadow-lg text-xl "
         >
           View team members
         </Link>
