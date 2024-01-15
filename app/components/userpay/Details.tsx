@@ -80,7 +80,7 @@ export default function Details({ firstName, phoneNumber }) {
         <div className="flex justify-between px-4 mt-6">
           <p>Till Number</p>
           <div className="flex gap-4">
-            <p className="font-medium">4103574</p>
+            {/* <p className="font-medium">0768093037</p>
             <button
               onClick={() => copyToClipboard("4103574", setCopyPhoneSuccess)}
               className="relative"
@@ -91,6 +91,14 @@ export default function Details({ firstName, phoneNumber }) {
                 width={20}
                 height={20}
               />
+            </button> */}
+            {/* show a button with technical error text(warning red) */}
+
+            <button
+              onClick={() => toast.error("Technical error, working on it")}
+              className="bg-red-100 px-4 py-1 rounded-lg shadow-md"
+            >
+              <p className="font-medium text-red-600">Technical error</p>
             </button>
             {/* show a button with technical error text(warning red) */}
 
