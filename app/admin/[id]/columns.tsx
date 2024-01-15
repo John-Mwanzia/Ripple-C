@@ -35,7 +35,7 @@ export type User = {
   }[];
   investments: {
     product: {
-      productName: string;
+      category: string;
       productImage: string;
       dailyIncome: number;
     };
