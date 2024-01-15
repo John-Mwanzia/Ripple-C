@@ -98,15 +98,12 @@ export default function Products({ products }) {
   return (
     <div className="mt-4 pb-20 flex justify-center    items-center">
       <div className="w-[95%] xl:w-[80%] flex justify-center">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product, index) => (
-            <div
-              key={product.productId}
-              className="bg-white shadow-md rounded-md p-4"
-            >
+            <div key={product.id} className="bg-white shadow-md rounded-md p-4">
               <div className="flex justify-between">
                 <div>
-                  <div className="flex gap-6 justify-center items-center">
+                  <div className="flex gap-12 justify-center items-center">
                     <div className="flex gap-2 justify-center items-center">
                       {/* show different images depending whether the category is Vip or Regula */}
                       {product.category === "Vip" ? (
@@ -145,7 +142,7 @@ export default function Products({ products }) {
                   />
                 </div>
               </div>
-              <div className="flex justify-between mt-4">
+              <div className="flex justify-between gap-5 lg:gap-10 mt-4">
                 <div>
                   <p className="text-gray-500 text-sm">Revenue Cycle</p>
                   <p className="text-[#F0C113]/80 font-semibold">
