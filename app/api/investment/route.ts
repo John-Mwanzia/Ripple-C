@@ -5,7 +5,6 @@ export const POST = async (req: Request) => {
   const {
     productId,
     phoneNumber,
-    productName,
     productPrice,
     revenueCycle,
     dailyIncome,
