@@ -74,7 +74,7 @@ export default function Products({ products }) {
       const response = await createInvestment({
         productId: product.id,
         phoneNumber: userData.phoneNumber,
-        productName: product.productName,
+        category: product.category,
         productPrice: product.productPrice,
         revenueCycle: product.cycle,
         dailyIncome: product.dailyIncome,
@@ -101,7 +101,7 @@ export default function Products({ products }) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {products.map((product, index) => (
             <div
-              key={product.productName}
+              key={product.productId}
               className="bg-white shadow-md rounded-md p-4"
             >
               <div className="flex justify-between">

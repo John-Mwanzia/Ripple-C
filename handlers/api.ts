@@ -89,7 +89,7 @@ export const transactionInit = async ({ phoneNumber, amount, type }) => {
 export const createInvestment = async ({
   productId,
   phoneNumber,
-  productName,
+  category,
   productPrice,
   revenueCycle,
   dailyIncome,
@@ -102,7 +102,7 @@ export const createInvestment = async ({
         body: JSON.stringify({
           productId,
           phoneNumber,
-          productName,
+          category,
           productPrice,
           revenueCycle,
           dailyIncome,
