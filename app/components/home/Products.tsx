@@ -103,7 +103,7 @@ export default function Products({ products }) {
             <div key={product.id} className="bg-white shadow-md rounded-md p-4">
               <div className="flex justify-between">
                 <div>
-                  <div className="flex gap-12 justify-center items-center">
+                  <div className="flex  items-center justify-between">
                     <div className="flex gap-2 justify-center items-center">
                       {/* show different images depending whether the category is Vip or Regula */}
                       {product.category === "Vip" ? (
@@ -125,22 +125,37 @@ export default function Products({ products }) {
                         {product.category}
                       </p>
                     </div>
-                    <p className="text-gray-500 text-sm">
-                      {" "}
-                      <span>level:</span> {product.level}
-                    </p>
+                    <div>
+                      <p className="text-gray-500 text-sm">
+                        {" "}
+                        <span>level:</span> {product.level}
+                      </p>
+                    </div>
+
+                    <div className="flex justify-end ">
+                      {loadingIndices.includes(index) ? (
+                        <Loader width={30} height={30} />
+                      ) : (
+                        <button
+                          onClick={() => handleBuyNow(product, index)} // Pass index here
+                          className="bg-[#4294FF]/80 text-white px-4 py-2 rounded-md"
+                        >
+                          Buy Now
+                        </button>
+                      )}
+                    </div>
                   </div>
                   <p className="text-gray-500 text-sm">
                     Price: {product.productPrice}
                   </p>
                 </div>
-                <div>
+                {/* <div>
                   <img
                     src={product.productImage}
                     alt=""
                     className="w-20 h-20"
                   />
-                </div>
+                </div> */}
               </div>
               <div className="flex justify-between gap-5 lg:gap-10 mt-4">
                 <div>
@@ -164,7 +179,7 @@ export default function Products({ products }) {
                   </p>
                 </div>
               </div>
-              <div className="flex justify-end mt-4">
+              {/* <div className="flex justify-end mt-4">
                 {loadingIndices.includes(index) ? (
                   <Loader width={30} height={30} />
                 ) : (
@@ -175,7 +190,7 @@ export default function Products({ products }) {
                     Buy Now
                   </button>
                 )}
-              </div>
+              </div> */}
             </div>
           ))}
         </div>
