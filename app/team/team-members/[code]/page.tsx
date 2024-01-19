@@ -57,9 +57,7 @@ export default async function page({ params }) {
             </div>
             <h3 className="font-semibold text-xl">{referee.firstName}</h3>
             <div className="flex flex-col">
-              {/* <p>{referee.phoneNumber}</p> */}
               <p>Referral Code: {referee.referralCode}</p>
-              {/* Calculate and display potential earnings here */}
             </div>
           </div>
         ))}
