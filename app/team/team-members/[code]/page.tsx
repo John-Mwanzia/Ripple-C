@@ -41,7 +41,7 @@ export default async function page({ params }) {
         </div>
       )}
 
-      {/* Primary Referrals */}
+      {/*  Referrals */}
       <h1 className="text-center mt-6 mb-4">
         Total invitees ({response.referee.length})
       </h1>
