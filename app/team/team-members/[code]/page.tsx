@@ -36,9 +36,6 @@ export default async function page({ params }) {
           <h3 className="font-semibold text-xl">Referrer</h3>
           <div className="flex flex-col">
             <p>Referral Code: {response.referrer.referralCode}</p>
-
-            {/* <p className="">{response.referrer.firstName}</p> */}
-            {/* <p>{response.referrer.phoneNumber}</p> */}
           </div>
         </div>
       )}
