@@ -2,6 +2,7 @@ import BottomNav from "@/app/components/BottomNav";
 import prisma from "@/modules/db";
 import React from "react";
 import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
 
 export default async function page({ params }) {
   const response = await prisma.user.findUnique({
@@ -23,38 +24,50 @@ export default async function page({ params }) {
 
       {/* Referrer */}
       {response.referrer && (
-        <Badge variant="outline" className="w-full">
-          <div className="flex gap-3 items-center justify-between">
-            <h3 className="font-semibold text-xl">Referrer</h3>
-            <div className="flex flex-col">
-              <p className="">{response.referrer.firstName}</p>
-              <p>{response.referrer.phoneNumber}</p>
-            </div>
+        <div className="flex gap-3 items-center justify-between">
+          <div>
+            <Image
+              src="https://cdn-icons-png.flaticon.com/128/11519/11519985.png"
+              alt={response.referrer.firstName}
+              width={20}
+              height={20}
+            />
           </div>
-        </Badge>
+          <h3 className="font-semibold text-xl">Referrer</h3>
+          <div className="flex flex-col">
+            <p className="">{response.referrer.firstName}</p>
+            <p>{response.referrer.phoneNumber}</p>
+          </div>
+        </div>
       )}
 
       {/* Primary Referrals */}
       <h1 className="text-center mt-6 mb-4">
-        Primary Referrals ({response.referee.length})
+        Total invitees ({response.referee.length})
       </h1>
       <div className="flex flex-col gap-4">
         {response.referee.map((referee) => (
-          <Badge key={referee.id} variant="default" className="w-[80%] mx-auto">
-            <div className="flex gap-3 justify-center items-center">
-              <h3 className="font-semibold text-xl">{referee.firstName}</h3>
-              <div className="flex flex-col">
-                {/* <p>{referee.phoneNumber}</p> */}
-                <p>Referral Code: {referee.referralCode}</p>
-                {/* Calculate and display potential earnings here */}
-              </div>
+          <div className="flex gap-3 justify-center items-center">
+            <div>
+              <Image
+                src="https://cdn-icons-png.flaticon.com/128/11519/11519985.png"
+                alt={referee.firstName}
+                width={20}
+                height={20}
+              />
             </div>
-          </Badge>
+            <h3 className="font-semibold text-xl">{referee.firstName}</h3>
+            <div className="flex flex-col">
+              {/* <p>{referee.phoneNumber}</p> */}
+              <p>Referral Code: {referee.referralCode}</p>
+              {/* Calculate and display potential earnings here */}
+            </div>
+          </div>
         ))}
       </div>
 
       {/* Secondary Referrals */}
-      <h1 className="text-center mt-6 mb-4">
+      {/* <h1 className="text-center mt-6 mb-4">
         Secondary Referrals ({response.secondaryReferees.length})
       </h1>
       <div className="flex flex-col gap-4">
@@ -68,15 +81,15 @@ export default async function page({ params }) {
               <h3 className="font-semibold text-xl">
                 {secondaryReferee.firstName}
               </h3>
-              <div className="flex flex-col">
-                {/* <p>{secondaryReferee.phoneNumber}</p> */}
-                <p>Referral Code: {secondaryReferee.referralCode}</p>
-                {/* Calculate and display potential earnings here */}
-              </div>
+              <div className="flex flex-col"> */}
+      {/* <p>{secondaryReferee.phoneNumber}</p> */}
+      {/* <p>Referral Code: {secondaryReferee.referralCode}</p> */}
+      {/* Calculate and display potential earnings here */}
+      {/* </div>
             </div>
           </Badge>
         ))}
-      </div>
+      </div> */}
 
       <BottomNav />
     </div>
