@@ -18,7 +18,7 @@ export default async function page({ params }) {
 
   return (
     <div className="">
-      <div className="bg-[#E95514]/80 p-4 rounded-lg">
+      <div className="bg-[#5182EF] p-4 rounded-lg">
         <h1 className="text-2xl font-bold mb-4">Recharge history</h1>
         <h2 className="text-lg font-semibold mb-2">
           Account balance: {response.Account[0].balance}
