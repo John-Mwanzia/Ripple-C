@@ -24,7 +24,7 @@ export default async function page({ params }) {
 
       {/* Referrer */}
       {response.referrer && (
-        <div className="flex gap-3 items-center justify-between">
+        <div className="flex gap-3 px-4 items-center justify-center">
           <div>
             <Image
               src="https://cdn-icons-png.flaticon.com/128/11519/11519985.png"
@@ -35,8 +35,7 @@ export default async function page({ params }) {
           </div>
           <h3 className="font-semibold text-xl">Referrer</h3>
           <div className="flex flex-col">
-            <p className="">{response.referrer.firstName}</p>
-            <p>{response.referrer.phoneNumber}</p>
+            <p>Referral Code: {response.referrer.referralCode}</p>
           </div>
         </div>
       )}
@@ -58,9 +57,7 @@ export default async function page({ params }) {
             </div>
             <h3 className="font-semibold text-xl">{referee.firstName}</h3>
             <div className="flex flex-col">
-              {/* <p>{referee.phoneNumber}</p> */}
               <p>Referral Code: {referee.referralCode}</p>
-              {/* Calculate and display potential earnings here */}
             </div>
           </div>
         ))}
