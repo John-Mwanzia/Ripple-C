@@ -12,17 +12,12 @@ export default function Header({ user }) {
     return ""; // Or any other default character you want to display
   };
   return (
-    <div className="flex justify-between px-4">
-      <div className="absolute top-6 text-white text-xl font-bold">
-        {user && user.phoneNumber}
+    <div className="flex justify-between pt-4 px-4 mb-12">
+      <div className=" text-black text-xl font-bold">
+        phoneNo: {user && user.phoneNumber}
       </div>
-      <div className="absolute top-20 text-black px-3  font-bold">
-        <span>
-          <strong>Recomended Code : </strong>
-        </span>
-        {user && user.referralCode}
-      </div>
-      <div className="absolute top-4 right-4">
+
+      <div className=" right-4">
         <Avatar>
           <AvatarImage
             src="https://cdn-icons-png.flaticon.com/128/3177/3177440.png"

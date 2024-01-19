@@ -46,7 +46,7 @@ export default function page() {
   }, [token]);
 
   return (
-    <div className="relative   ">
+    <div className="relative bg-[#5182EF]/70 h-screen  ">
       {isLoading ? (
         <div className=" w-screen h-screen flex justify-center items-center">
           <Loader width={50} height={50} />
@@ -54,13 +54,12 @@ export default function page() {
       ) : (
         <>
           <Header user={userData} />
-          <div className="absolute top-32 px-6">
-            <h2 className="text-black text-xl font-bold">Account Balance :</h2>
-            <span className="text-black font-bold">
-              Ksh: {userData && userData.Account[0].balance}
-            </span>
+          <div className=" px-4">
+            <h2 className="text-black text-xl font-bold">
+              Account Balance : Ksh: {userData && userData.Account[0].balance}
+            </h2>
           </div>
-          <div>
+          {/* <div>
             <Image
               src="/photon.svg"
               alt="loading"
@@ -68,10 +67,10 @@ export default function page() {
               height={100}
               className="w-full h-full"
             />
-          </div>
+          </div> */}
 
           <div className="flex justify-between px-4 mt-8">
-            <div className="bg-[#E95514]/80  px-6 py-2 rounded-lg">
+            <div className="bg-zinc-100 shadow-lg  px-6 py-2 rounded-lg">
               <Link
                 href={`/wallet/recharge/${userData && userData.id}`}
                 className="flex flex-col items-center"
@@ -86,7 +85,7 @@ export default function page() {
                 Recharge
               </Link>
             </div>
-            <div className="bg-[#E95514]/80  px-6 py-2 rounded-lg">
+            <div className="bg-zinc-100 shadow-lg  px-6 py-2 rounded-lg">
               <Link
                 href={`/wallet/withdraw/${userData && userData.id}`}
                 className="flex flex-col items-center"
@@ -108,7 +107,7 @@ export default function page() {
                 href={`/recharge-history/${userData && userData.id}`}
                 className="text-black flex justify-between  font-bold"
               >
-                <h2>Recharge Records</h2>
+                <h2>Recharge logs</h2>
                 <Image
                   src="https://cdn-icons-png.flaticon.com/128/709/709586.png"
                   alt="right arrow"
@@ -123,7 +122,7 @@ export default function page() {
                 href={`/withdraw-history/${userData && userData.id}`}
                 className="text-black flex justify-between  font-bold"
               >
-                <h2>Withdraw Records</h2>
+                <h2>Withdraw logs</h2>
                 <Image
                   src="https://cdn-icons-png.flaticon.com/128/709/709586.png"
                   alt="right arrow"
