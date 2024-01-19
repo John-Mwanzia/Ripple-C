@@ -134,7 +134,7 @@ export const POST = async (req: Request, res: Response) => {
           },
           data: {
             balance: {
-              increment: amount * 0.1,
+              increment: amount * 0.15,
             },
           },
         });
@@ -145,55 +145,55 @@ export const POST = async (req: Request, res: Response) => {
           },
           data: {
             inviteRevenue: {
-              increment: amount * 0.1,
+              increment: amount * 0.15,
             },
           },
         });
 
         // check if the referrer has a secondary referrer
-        if (referrer.referrerId) {
-          // get the secondary referrer
-          const secondaryReferrer = await prisma.user.findUnique({
-            where: {
-              id: referrer.referrerId,
-            },
-            include: {
-              Account: {
-                include: {
-                  Transaction: {
-                    orderBy: {
-                      createdAt: "desc",
-                    },
-                  },
-                },
-              },
-            },
-          });
+        //   if (referrer.referrerId) {
+        //     // get the secondary referrer
+        //     const secondaryReferrer = await prisma.user.findUnique({
+        //       where: {
+        //         id: referrer.referrerId,
+        //       },
+        //       include: {
+        //         Account: {
+        //           include: {
+        //             Transaction: {
+        //               orderBy: {
+        //                 createdAt: "desc",
+        //               },
+        //             },
+        //           },
+        //         },
+        //       },
+        //     });
 
-          // award the secondary referrer 4% of the amount of the transaction to the account
-          // and also the invite revenue of the secondary referrer will be updated
-          const updatedSecondaryReferrerAccount = await prisma.account.update({
-            where: {
-              id: secondaryReferrer.Account[0].id,
-            },
-            data: {
-              balance: {
-                increment: amount * 0.04,
-              },
-            },
-          });
+        //     // award the secondary referrer 4% of the amount of the transaction to the account
+        //     // and also the invite revenue of the secondary referrer will be updated
+        //     const updatedSecondaryReferrerAccount = await prisma.account.update({
+        //       where: {
+        //         id: secondaryReferrer.Account[0].id,
+        //       },
+        //       data: {
+        //         balance: {
+        //           increment: amount * 0.04,
+        //         },
+        //       },
+        //     });
 
-          const updatedSecondaryReferrer = await prisma.user.update({
-            where: {
-              id: secondaryReferrer.id,
-            },
-            data: {
-              inviteRevenue: {
-                increment: amount * 0.04,
-              },
-            },
-          });
-        }
+        //     const updatedSecondaryReferrer = await prisma.user.update({
+        //       where: {
+        //         id: secondaryReferrer.id,
+        //       },
+        //       data: {
+        //         inviteRevenue: {
+        //           increment: amount * 0.04,
+        //         },
+        //       },
+        //     });
+        //   }
       }
     }
 
