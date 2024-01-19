@@ -16,15 +16,15 @@ interface Action {
 
 const initialState: State = {
   token:
-    typeof window !== "undefined" && localStorage.getItem("token")
-      ? JSON.parse(localStorage.getItem("token"))
+    typeof window !== "undefined" && localStorage.getItem("newtoken")
+      ? JSON.parse(localStorage.getItem("newtoken"))
       : null,
 };
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
     case "LOGIN":
-      localStorage.setItem("token", JSON.stringify(action.payload));
+      localStorage.setItem("newtoken", JSON.stringify(action.payload));
       return { ...state, token: action.payload };
     case "LOGOUT":
       localStorage.clear();
