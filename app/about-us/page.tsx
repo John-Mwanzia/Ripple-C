@@ -64,17 +64,17 @@ export default function page() {
           </p>
           <div className="flex items-center justify-center mt-4">
             <Link
-              href="https://chat.whatsapp.com/JKO4LyJOjWL7QFOkn78XAn"
+              href="https://chat.whatsapp.com/B4oiSFzvNJ86jeYBGoYqSa"
               className="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-md font-semibold hover:bg-blue-600"
             >
-               WhatsApp 
-                <Image
-                    src="https://cdn-icons-png.flaticon.com/128/2111/2111728.png"
-                    alt="whatsapp"
-                    width={30}
-                    height={30}
-                    className="ml-2"
-                />
+              WhatsApp
+              <Image
+                src="https://cdn-icons-png.flaticon.com/128/2111/2111728.png"
+                alt="whatsapp"
+                width={30}
+                height={30}
+                className="ml-2"
+              />
             </Link>
             <Link
               href="https://t.me/trdcompany"
