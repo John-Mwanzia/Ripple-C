@@ -22,9 +22,9 @@ export default function WIthdrawForm({ balance, accountId, investments }) {
   const handleWithdraw = async (formData: FormData) => {
     ref.current.reset();
     const amount = Number(formData.get("amount"));
-    if (amount < 100) {
+    if (amount < 200) {
       // Handle error
-      toast.error("Minimum withdrawal amount is Ksh: 100");
+      toast.error("Minimum withdrawal amount is Ksh: 200");
       return;
     }
     if (amount > balance) {
