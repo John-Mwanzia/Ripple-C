@@ -11,7 +11,7 @@ export default async function page() {
   });
 
   return (
-    <div className="bg-white overflow-x-hidden">
+    <div className="bg-[#85A7F4] overflow-x-hidden">
       <Header />
       <Products products={response} />
       <BottomNav />

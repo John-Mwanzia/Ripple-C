@@ -1,6 +1,7 @@
 import formAction from "@/handlers/actions";
 import prisma from "@/modules/db";
 import React, { useRef, useState } from "react";
+import swal from "sweetalert";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import * as Yup from "yup";
@@ -57,6 +58,13 @@ export default function UserPayForm({
 
         if (res?.status === "success") {
           toast.success("Payment successful 🎉, wait for confirmation");
+          // show an alert to the user specifying that if the payment is not confirmed and reflected to account within an hour, they should contact support to this phone number 254 746 120954
+
+          swal(
+            "Payment successful 🎉",
+            "Wait for confirmation, if the payment is not confirmed and reflected to account within an hour, contact support to this phone number 254 746 120954",
+            "success"
+          );
 
           //redirect to home page
           router.push("/");
