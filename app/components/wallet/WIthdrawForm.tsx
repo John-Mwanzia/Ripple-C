@@ -49,6 +49,7 @@ export default function WIthdrawForm({ balance, accountId, investments }) {
         const response = await withdrawAction(amount, accountId, investments);
         if (response.status === "success") {
           toast.success("Withdrawal request sent");
+          router.push("/account");
         } else {
           toast.error(response.message);
         }
