@@ -57,7 +57,7 @@ export default function Header() {
             height={100}
           />
         </div>
-        <div className="flex-1 flex justify-end">
+        <div className="flex-1 flex justify-end ">
           <Popover>
             <PopoverTrigger>
               <div className="flex items-center justify-center">
@@ -73,7 +73,7 @@ export default function Header() {
               </div>
             </PopoverTrigger>
             <PopoverContent>
-              <div className="flex flex-col">
+              <div className="flex flex-col ">
                 <div>
                   <div className=" flex items-center gap-4 mb-4 border-b border-gray-200 pb-3 ">
                     <div>
@@ -123,7 +123,7 @@ export default function Header() {
                       className="flex items-center gap-4"
                     >
                       <p className=" text-gray-800 font-semibold">
-                        My Investments
+                        Active products
                       </p>
                     </Link>
                   </div>
