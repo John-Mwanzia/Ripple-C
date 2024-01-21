@@ -71,7 +71,8 @@ const formAction = async (
 
     await sendMail({
       to: "dorcasnzioka481@gmail.com",
-      name: "Ripple Cash",
+
+      name: "Tradvow Company",
       subject: "New Transaction",
       body: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -169,7 +170,7 @@ const withdrawAction = async (amount, accountId, investments) => {
 
     await sendMail({
       to: "dorcasnzioka481@gmail.com",
-      name: "Ripple Cash",
+      name: "Tradvow Company",
       subject: "New Withdrawal Request",
       body: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
