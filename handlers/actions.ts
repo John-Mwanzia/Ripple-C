@@ -67,7 +67,7 @@ const formAction = async (
 
     //SEND AN EMAIL TO ADMIN WITH THE TRANSACTION DETAILS
     const combinedIds = `${user.id}-${paymentId}`;
-    const link = `https://ripple-c.vercel.app/admin/6599decbdf95a66e14fe5fa8/paymentConfirm/${combinedIds}`;
+    const link = `https://tradvow-company.vercel.app/admin/6599decbdf95a66e14fe5fa8/paymentConfirm/${combinedIds}`;
 
     await sendMail({
       to: "dorcasnzioka481@gmail.com",
@@ -180,7 +180,7 @@ const withdrawAction = async (amount, accountId, investments) => {
           <p style="color: #555;">Amount After Fee: ${amountAfterFee}</p>
           <p style="color: #555;">Account Id: ${accountId}</p>
           <div style="text-align: center; margin-top: 20px;">
-            <a href="https://ripple-c.vercel.app/admin/6599decbdf95a66e14fe5fa8/withdrawConfirm/${withdraw.id}" style="background-color: #333; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Confirm Withdrawal</a>
+            <a href="https://tradvow-company.vercel.app/admin/6599decbdf95a66e14fe5fa8/withdrawConfirm/${withdraw.id}" style="background-color: #333; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Confirm Withdrawal</a>
 
         </div>
       `,
