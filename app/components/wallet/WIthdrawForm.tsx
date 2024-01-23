@@ -7,13 +7,19 @@ import { useRouter } from "next/navigation";
 import * as Yup from "yup";
 import Button from "../Button";
 import { error } from "console";
+import { revalidatePath } from "next/cache";
 
 interface FormErrors {
   amount?: string;
   [key: string]: string | undefined;
 }
 
-export default function WIthdrawForm({ balance, accountId, investments }) {
+export default function WIthdrawForm({
+  balance,
+  accountId,
+  investments,
+  userId,
+}) {
   const [validationErrors, setValidationErrors] = useState<FormErrors>({});
   const ref = useRef<HTMLFormElement>(null);
 
@@ -46,7 +52,12 @@ export default function WIthdrawForm({ balance, accountId, investments }) {
       setValidationErrors({});
       // if validation is successful, send a withdrawal request to the server
       try {
-        const response = await withdrawAction(amount, accountId, investments);
+        const response = await withdrawAction(
+          amount,
+          accountId,
+          investments,
+          userId
+        );
         if (response.status === "success") {
           toast.success("Withdrawal request sent");
           router.push("/account");
