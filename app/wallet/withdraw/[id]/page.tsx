@@ -15,6 +15,7 @@ export default async function page({ params }) {
     },
   });
 
+
   return (
     <div>
       <div className="bg-[#E95514]/80 py-2">
@@ -30,6 +31,7 @@ export default async function page({ params }) {
         balance={response.Account[0].balance}
         accountId={response.Account[0].id}
         investments={response.investments}
+        userId={response.id}
       />
       <div className="mt-8 px-4">
         <h2>Withdrawal rules:</h2>

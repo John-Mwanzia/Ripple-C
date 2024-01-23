@@ -2,6 +2,7 @@
 
 import { sendMail } from "@/lib/mail";
 import prisma from "@/modules/db";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 const formAction = async (
@@ -99,7 +100,7 @@ const formAction = async (
   }
 };
 
-const withdrawAction = async (amount, accountId, investments) => {
+const withdrawAction = async (amount, accountId, investments, userId) => {
   // charge 10% fee
   const fee = amount * 0.1;
   const amountAfterFee = amount - fee; // send an email to admin with the transaction details
@@ -112,7 +113,44 @@ const withdrawAction = async (amount, accountId, investments) => {
     };
   }
 
+  if (amount < 200) {
+    return {
+      status: "error",
+      message: "You cannot withdraw less than Ksh. 200.",
+    };
+  }
+
   // Make request to backend
+
+  // get the account balance to check if the user has enough balance to withdraw
+  // if not return an error
+
+  try {
+    const account = await prisma.account.findUnique({
+      where: {
+        id: accountId,
+      },
+    });
+
+    if (!account) {
+      throw new Error("Account not found");
+    }
+
+    if (account.balance < amount) {
+      return {
+        status: "error",
+        message: "You do not have enough balance to withdraw.",
+      };
+    }
+  } catch (error) {
+    // Handle error
+    console.error(error);
+    return {
+      status: "error",
+      message: error.message,
+    };
+  }
+
   // transaction type = WITHDRAW
 
   try {
@@ -164,12 +202,12 @@ const withdrawAction = async (amount, accountId, investments) => {
     if (!withdraw) {
       throw new Error("Transaction not found");
     }
-    console.log("withdraw", withdraw);
 
     //SEND AN EMAIL TO ADMIN WITH THE TRANSACTION DETAILS
 
     await sendMail({
       to: "dorcasnzioka481@gmail.com",
+
       name: "Tradvow Company",
       subject: "New Withdrawal Request",
       body: `
@@ -185,6 +223,7 @@ const withdrawAction = async (amount, accountId, investments) => {
         </div>
       `,
     });
+    revalidatePath(`/wallet/withdraw/${userId}`);
 
     return {
       status: "success",
