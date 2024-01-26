@@ -113,10 +113,10 @@ const withdrawAction = async (amount, accountId, investments, userId) => {
     };
   }
 
-  if (amount < 200) {
+  if (amount < 350) {
     return {
       status: "error",
-      message: "You cannot withdraw less than Ksh. 200.",
+      message: "You cannot withdraw less than Ksh. 350.",
     };
   }
 

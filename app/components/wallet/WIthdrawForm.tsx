@@ -28,9 +28,9 @@ export default function WIthdrawForm({
   const handleWithdraw = async (formData: FormData) => {
     ref.current.reset();
     const amount = Number(formData.get("amount"));
-    if (amount < 200) {
+    if (amount < 350) {
       // Handle error
-      toast.error("Minimum withdrawal amount is Ksh: 200");
+      toast.error("Minimum withdrawal amount is Ksh: 350");
       return;
     }
     if (amount > balance) {
